@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3130013 */
+  src: url('iconfont.woff2?t=1641808185434') format('woff2'),
+       url('iconfont.woff?t=1641808185434') format('woff'),
+       url('iconfont.ttf?t=1641808185434') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-qq:before {
+  content: "\e6ca";
+  font-size:  19px;
+  color: rgb(16, 164, 255)
+}
+

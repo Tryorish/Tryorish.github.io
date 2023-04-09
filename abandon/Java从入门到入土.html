@@ -1,0 +1,694 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tryorish | Tryorish</title><meta name="author" content="Tryorish"><meta name="copyright" content="Tryorish"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="title: Java从入门到入土date: 2022-01-20 21:08:58tags: Java 前言 本笔记记录自己对书籍《Java核心技术卷》（基于Java SE 8）的学习过程及知识总结，书很厚，但既然希望自己能在这个寒假打牢自己的java基础，那么这块硬骨头是必须啃下来的，既然决定要走后端这条路，那么便从这里开始吧，去获取开启后端大门的钥匙–Java！    第一章   Java程">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tryorish">
+<meta property="og:url" content="http://example.com/abandon/Java%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F.html">
+<meta property="og:site_name" content="Tryorish">
+<meta property="og:description" content="title: Java从入门到入土date: 2022-01-20 21:08:58tags: Java 前言 本笔记记录自己对书籍《Java核心技术卷》（基于Java SE 8）的学习过程及知识总结，书很厚，但既然希望自己能在这个寒假打牢自己的java基础，那么这块硬骨头是必须啃下来的，既然决定要走后端这条路，那么便从这里开始吧，去获取开启后端大门的钥匙–Java！    第一章   Java程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2022-02-25T12:13:26.963Z">
+<meta property="article:modified_time" content="2022-01-15T07:53:01.256Z">
+<meta property="article:author" content="Tryorish">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/abandon/Java%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%85%A5%E5%9C%9F"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Tryorish',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2022-01-15 15:53:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/iconfont.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/tit.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a></div></div></div><hr/></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Tryorish</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">Tryorish</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><p>title: Java从入门到入土<br>date: 2022-01-20 21:08:58<br>tags: Java</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li><p>本笔记记录自己对书籍《Java核心技术卷》（基于Java SE 8）的学习过程及知识总结，书很厚，但既然希望自己能在这个寒假打牢自己的java基础，那么这块硬骨头是必须啃下来的，既然决定要走后端这条路，那么便从这里开始吧，去获取开启后端大门的钥匙–Java！</p>
+<hr>
+</li>
+</ul>
+<h1 id="第一章-Java程序设计概述"><a href="#第一章-Java程序设计概述" class="headerlink" title="第一章   Java程序设计概述"></a>第一章   Java程序设计概述</h1><h2 id="1-1-Java程序设计平台"><a href="#1-1-Java程序设计平台" class="headerlink" title="1.1   Java程序设计平台"></a>1.1   Java程序设计平台</h2><ul>
+<li>Java并不只是一种语言，而是一个完整的平台，有一个庞大的库，其中包含了很多可重用的代码和一个提供诸如安全性、跨操作系统的可移植性以及自动垃圾收集等服务的执行环境。</li>
+<li>Java具有令人赏心悦目的语法和易于理解的语义（C++不是这样的）。有些语言提供了可移植性、垃圾收集等，但是没有提供一个大型的库，如果想要有奇特的绘图功能、网络连接功能和数据库存取功能就必须自己动手编写代码。而Java完全满足了这些要求，正因为它集多种优势于一身，所以对广大的程序设计人员有着不可抗拒的吸引力。</li>
+<li>啊！Java这该死的无处安放的魅力！！！</li>
+</ul>
+<h2 id="1-2-Java”白皮书“的关键术语"><a href="#1-2-Java”白皮书“的关键术语" class="headerlink" title="1.2   Java”白皮书“的关键术语"></a>1.2   Java”白皮书“的关键术语</h2><p>1.2.1 简单性</p>
+<ul>
+<li>Java语法是C++语法的一个“纯净”版本。这里没有头文件、指针运算（甚至指针语法)、结构、联合、操作符重载、虚基类等。在目前看来，这些特性带来的麻烦远远多于其带来的好处。</li>
+<li>Java的一个小目标：支持开发能够在小型机器上独立运行的软件。基本的解释器以及类支持大约仅为40KB，再加上基础的标准类库和对线程的支持（基本上是一个自包含的微内核）大约需要增加175KB。</li>
+<li>现在有一个独立的具有较小类库的Java微型版（Java Micro Edition),这个版本适用于嵌入式设备。</li>
+</ul>
+<p>1.2.2 面向对象</p>
+<ul>
+<li><p>此对象非彼对象😅😅😅</p>
+</li>
+<li><p>面向对象设计是一种程序设计技术,它将重点放在数据(即对象)和对象的接口上。下面用木匠打一个比方:</p>
+<table>
+<thead>
+<tr>
+<th>一个“面向对象“的木匠</th>
+<th>一个”非面向对象“的木匠</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>始终关注的是所制作的椅子</td>
+<td>首先考虑所使用的工具</td>
+</tr>
+<tr>
+<td>第二位才是所使用的工具</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>Java的面向对象特性与C++旗鼓相当，与C++的主要不同点在于多重继承，在Java中，取而代之的是更简单的接口概念。与C++相比，Java提供更丰富的运行时自省功能</p>
+</li>
+</ul>
+<p>1.2.3 分布式</p>
+<ul>
+<li>Java有一个丰富的例程库，用于处理像HTTP和FTP之类的TCP/IP协议。Java应用程序能够通过URL打开和访问网络上的对象，其便捷程度就好像访问本地文件一样。</li>
+</ul>
+<p>1.2.4 健壮性</p>
+<ul>
+<li>Java的另一个设计目标在于使得Java编写的程序具有多方面的可靠性。Java投入了大量精力进行早期的问题检测、后期动态的（运行时）检测，并消除了容易出错的模型…Java和C++最大的不同在于Java采用的指针模型可以消除重写内存和损坏数据的可能性。</li>
+<li>因此，Java编译器能够检测许多在其他语言中仅在运行时才能够检测出来的问题。（指针bug人狂喜！！！）</li>
+</ul>
+<p>1.2.5 安全性</p>
+<p>Java适用于网络/分布式环境。为了达到这个目标，在安全方面投入了很大精力。使用Java可以构建防病毒防篡改的系统。</p>
+<p>从一开始，Java就设计成能够防范各种攻击，包括：</p>
+<ul>
+<li>运行时堆栈溢出。如蠕虫和病毒常用的攻击手段</li>
+<li>破坏自己的进程空间之外的内存</li>
+<li>未经授权读写文件</li>
+</ul>
+<p>1.2.6 体系结构中立</p>
+<ul>
+<li>编译器生成一个体系结构中立的目标文件格式。Java编译器通过生成与特定的计算机体系结构无关的字节码指令来实现这一特性。精心设计的字节码不仅可以很容易地在任何机器上解释执行，而且还可以动态地翻译成本地机器代码</li>
+<li>这就该Java虚拟机大显身手了</li>
+</ul>
+<p>1.2.7 可移植性</p>
+<ul>
+<li><p>与C和C++不同，Java规范中没有”依赖具体实现”的地方。基本数据类型的大小以及有关运算都做了明确说明。</p>
+<p>数据类型有固定的大小（例如Java中的int永远为32位的整数），消除了代码移植时令人头疼的问题。二进制数据以固定的格式进行存储和传输，消除了字节顺序的困扰。字符串是用标准的Unicode格式存储的。</p>
+</li>
+<li><p>作为系统组成部分的类库，定义了可移植的接口。例如有一个抽象的Windows类，并给出了在UNIX、Windows和Macintosh环境下的不同实现。</p>
+</li>
+</ul>
+<p>1.2.8 解释型</p>
+<ul>
+<li>Java解释器可以在任何移植了解释器的机器上执行Java字节码。由于链接是一个增量式且轻量级的过程，所以，开发过程也变得更加快捷，更加具有探索性。</li>
+</ul>
+<p>1.2.9 高性能</p>
+<ul>
+<li>尽管对解释后的字节码性能已经比较满意，但在有些场合下还需要更加高效的性能。字节码可以（在运行时刻）动态地翻译成对应运行这个应用的特定cpu的机器码。</li>
+</ul>
+<p>1.2.10 多线程</p>
+<ul>
+<li>多线程可以带来更好的交互响应和实时行为</li>
+</ul>
+<p>1.2.11 动态性</p>
+<ul>
+<li>从各种角度看，Java与C或C++相比更加具有动态性。它能够适应不断发展的环境。库中可以自由地添加新方法和实例变量，而对客户端没有任何影响。在Java中找出运行时类型信息十分简单</li>
+</ul>
+<h2 id="1-3-Java-applet-与-Internet"><a href="#1-3-Java-applet-与-Internet" class="headerlink" title="1.3   Java applet 与 Internet"></a>1.3   Java applet 与 Internet</h2><ul>
+<li>用户从Internet下载Java字节码，并在自己的机器上运行。在网页中运行的Java程序称为applet。要使用applet，需启用Java的web浏览器执行字节码文件。</li>
+<li>如今在浏览器中使用applet，需要一定的水平和努力</li>
+</ul>
+<h2 id="1-4-Java发展简史"><a href="#1-4-Java发展简史" class="headerlink" title="1.4   Java发展简史"></a>1.4   Java发展简史</h2><ul>
+<li>1991年，Sun公司工程师小组想设计一种小型的计算机语言，主要用于像有线电视转换盒这类的消费设备，这个项目被命名为“Green”</li>
+<li>创始人起初把这种语言命名为Oak，后因与其他语言重名改为Java</li>
+<li>1992年，竞标的一个项目没有成功，Netscape公司后来对Java成功给予了很大帮助</li>
+<li>Green项目（换新名字—“First Person公司”）花费了1993年一整年及1994上半年也没找到其技术的买家，该公司解散</li>
+<li>1995年设计者让HotJava浏览器具有了在网页中执行内嵌代码的能力</li>
+<li>1996年Sun发布了Java1.0，但没有打印功能，Java1.1弥补了一些缺陷</li>
+<li>1998年Java1.2发布，改名为“Java 2标准版软件开发工具箱1.2版”，同时推出用于手机等嵌入式设备的“微型版”和用于服务器端处理的“企业版”</li>
+<li>1.3和1.4扩展了标准类库，提高了系统性能，5.0版做出重大改进（原名1.5）添加了泛型类型（类似于C++模板），还有受C#启发的语言特性：“for each”循环、自动装箱和注解</li>
+<li>2006年末发布6版（没有后缀.0）做出了细微改进</li>
+<li>2009年被Oracle收购，2011年发布Java7，微改</li>
+<li>2014年发布Java 8提供了一种“函数式”编成方式，与时俱进</li>
+</ul>
+<p>直接上表格吧：</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>年份</th>
+<th>语言新特性</th>
+<th>类与接口的数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.0</td>
+<td>1996</td>
+<td>语言本身</td>
+<td>211</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>1997</td>
+<td>内部类</td>
+<td>477</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>1998</td>
+<td>strictfp修饰符</td>
+<td>1524</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>2000</td>
+<td>无</td>
+<td>1840</td>
+</tr>
+<tr>
+<td>1.4</td>
+<td>2002</td>
+<td>断言</td>
+<td>2723</td>
+</tr>
+<tr>
+<td>5.0</td>
+<td>2004</td>
+<td>泛型类、for each 循环、可变元参数、自动装箱、元数据、枚举、静态导入</td>
+<td>3279</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2006</td>
+<td>无</td>
+<td>3793</td>
+</tr>
+<tr>
+<td>7</td>
+<td>2011</td>
+<td>基于字符串的switch、钻石操作符、二进制字面量、异常处理改进</td>
+<td>4024</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2014</td>
+<td>lambda表达式，包含默认方法的接口，流和日期/时间库</td>
+<td>4240</td>
+</tr>
+</tbody></table>
+<h2 id="1-5-关于Java的常见误解"><a href="#1-5-关于Java的常见误解" class="headerlink" title="1.5   关于Java的常见误解"></a>1.5   关于Java的常见误解</h2><p>以下都是不准确的：</p>
+<ol>
+<li>Java是HTML的扩展</li>
+<li>使用XML，所以不需要Java</li>
+<li>Java是一种非常容易学习的程序设计语言</li>
+<li>Java将成为适用于所有平台的通用性编成语言</li>
+<li>Java只不过是另外一种程序设计语言</li>
+<li>Java是专用的，应该避免使用</li>
+<li>Java是解释型的因此对于关键的应用程序速度太慢了</li>
+<li>所有的Java程序都是在网页中运行的</li>
+<li>Java程序是主要的安全风险</li>
+<li>Javascript是Java的简易版</li>
+<li>使用Java可以用廉价的Internet设备取代桌面计算机</li>
+</ol>
+<h1 id="第二章-Java程序设计环境"><a href="#第二章-Java程序设计环境" class="headerlink" title="第二章   Java程序设计环境"></a>第二章   Java程序设计环境</h1><h2 id="2-1-一些概念"><a href="#2-1-一些概念" class="headerlink" title="2.1 一些概念"></a>2.1 一些概念</h2><table>
+<thead>
+<tr>
+<th>Java develpoment kit</th>
+<th>jdk</th>
+<th>Java开发工具包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Java runtime environment</td>
+<td>jre</td>
+<td>Java运行环境</td>
+</tr>
+<tr>
+<td>Java virtual machine</td>
+<td>jvm</td>
+<td>Java虚拟机</td>
+</tr>
+</tbody></table>
+<h2 id="2-2-jdk下载"><a href="#2-2-jdk下载" class="headerlink" title="2.2 jdk下载"></a>2.2 <a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase/javase9-archive-downloads.html">jdk下载</a></h2><p>安装：</p>
+<p>1.新建系统变量:JAVA_HOME</p>
+<blockquote>
+<p>路径取jdk路径</p>
+<p>E:\xxx\jdk1.8</p>
+</blockquote>
+<p>2.在系统变量Path后面追加</p>
+<blockquote>
+<p>%JAVA_HOME%\bin</p>
+<p>%JAVA_HOME%\jre\bin</p>
+</blockquote>
+<p>3.添加classpath</p>
+<blockquote>
+<p>CLASSPATH</p>
+<p>.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar</p>
+</blockquote>
+<p>4.验证</p>
+<blockquote>
+<p>打开cmd</p>
+<p>输入javac -version</p>
+</blockquote>
+<h2 id="2-3-集成开发环境"><a href="#2-3-集成开发环境" class="headerlink" title="2.3 集成开发环境"></a>2.3 集成开发环境</h2><p> <a target="_blank" rel="noopener" href="https://www.jetbrains.com/idea/">IDEA</a></p>
+<h1 id="第三章-Java的基本程序设计结构"><a href="#第三章-Java的基本程序设计结构" class="headerlink" title="第三章   Java的基本程序设计结构"></a>第三章   Java的基本程序设计结构</h1><h2 id="3-1-一个简单的java应用程序"><a href="#3-1-一个简单的java应用程序" class="headerlink" title="3.1 一个简单的java应用程序"></a>3.1 一个简单的java应用程序</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassName</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="comment">// program statements</span></span><br><span class="line">        System.out.println(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>public称为访问修饰符，用于控制程序的其他部分对这段代码的访问级别</p>
+</li>
+<li><p>类名是以大写字母开头的名词（驼峰命名法）</p>
+</li>
+<li><p>源代码的文件名必须与公共类的名字相同并用.java作为扩展名</p>
+</li>
+<li><p>在类的源文件中必须包含一个main（main方法必须声明为public）</p>
+</li>
+</ul>
+<h2 id="3-2-注释"><a href="#3-2-注释" class="headerlink" title="3.2 注释"></a>3.2 注释</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//第一种注释</span></span><br><span class="line"><span class="comment">/*第二种注释*/</span>注意不能嵌套</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *第三种注释可用来自动生成文档</span></span><br><span class="line"><span class="comment"> *@....</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-数据类型"><a href="#3-3-数据类型" class="headerlink" title="3.3 数据类型"></a>3.3 数据类型</h2><ul>
+<li>Java是一种强类型语言，这意味着必须为每一个变量声明一种类型</li>
+</ul>
+<p>1.整型</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储需求</th>
+<th>取值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int</td>
+<td>4字节</td>
+<td>-2147483648 ~ 2147483647（正好超过20亿）</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2字节</td>
+<td>-32768 ~ 32767</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8字节</td>
+<td>-9223372036854775808 ~ 9223372036854775807</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>1字节</td>
+<td>-128 ~ 127</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<blockquote>
+<p>长整型 4000000000L</p>
+<p>十六进制 0xCAFE</p>
+<p>八进制 010  (容易混淆，不常用 )</p>
+<p>二进制 0b1001</p>
+</blockquote>
+<p>从java7开始可以为数字字面量加下划线，只是为了增加可读性，如1-000-000表示一百万</p>
+<ul>
+<li>java没有任何无符号整型</li>
+</ul>
+<p>2.浮点类型</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存储需求</th>
+<th>取值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>float</td>
+<td>4字节</td>
+<td>大约±3.40282347E+38F（有效位数为6~7位）</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8字节</td>
+<td>大约±1.79769313486231570E+308（有效位数15位）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>float类型数值都有一个后缀F或f，如3.14f</p>
+<p>没有后缀f的浮点数值，如3.14，默认位double类型</p>
+<p>当然也可以在后面添加后缀D或d</p>
+<p>可用十六进制表示浮点数值，如0.125表示为0x1.0p-3，十六进制中，p表示指数，而不是e，尾数采用十六进制，指数采用十进制，指数的基数是2，而不是10</p>
+</blockquote>
+<p>3.Unicode和char类型</p>
+<blockquote>
+<p>Java中char类型描述了UTF-16编码中的一个代码单元</p>
+<p>不建议使用差人类型，而最好将字符串作为抽象数据类型处理</p>
+</blockquote>
+<p>4.boolean类型</p>
+<blockquote>
+<p>有两个值false和true，整型值和布尔值之间不能进行相互转换</p>
+<p>而在C++中，数值甚至指针可以替代boolea值</p>
+</blockquote>
+<h2 id="3-4-变量"><a href="#3-4-变量" class="headerlink" title="3.4 变量"></a>3.4 变量</h2><ul>
+<li><p>字母开头，大小写敏感</p>
+</li>
+<li><p>变量使用前必须初始化</p>
+</li>
+<li><p>关键字final指示常量，常量名习惯上全大写</p>
+</li>
+<li><p>类常量可以在一个类中的多个方法中使用，使用关键字 static final，定义于main方法外部</p>
+</li>
+</ul>
+<blockquote>
+<p>例如 public static final double CM_PER_INCH = 2.54;</p>
+</blockquote>
+<h2 id="3-5-运算符"><a href="#3-5-运算符" class="headerlink" title="3.5 运算符"></a>3.5 运算符</h2><ul>
+<li><p>整数被0除会产生异常，浮点数被0除会得到无穷大或NaN结果</p>
+</li>
+<li><p>自动类型转换</p>
+<p>整型、实型（常量）、字符型数据可以混合运算。运算中，不同类型的数据先转化为同一类型，然后进行运算。</p>
+<p>转换从低级到高级。</p>
+</li>
+</ul>
+<blockquote>
+<p>低 ——————————–&gt; 高</p>
+<p>byte、short、char -&gt; int -&gt; long -&gt; float -&gt; double </p>
+</blockquote>
+<ul>
+<li>强制类型转换</li>
+</ul>
+<blockquote>
+<p>//截断</p>
+<p>double x=9.997；</p>
+<p>int nx=(int)x;  //值为9</p>
+<p>//舍入-Math.round方法</p>
+<p>double x=9.997；</p>
+<p>int nx=(int) Math.round（x）;  //值为10</p>
+</blockquote>
+<p>注意：不要再boolean类型与任何数值类型之间进行强制类型转换</p>
+<h2 id="3-6-字符串"><a href="#3-6-字符串" class="headerlink" title="3.6 字符串"></a>3.6 字符串</h2><ul>
+<li>java字符串就是unicod字符序列</li>
+</ul>
+<p>1.子串</p>
+<p>substring方法的第二个参数是不想复制的第一个位置，优点：容易计算子串长度</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String greeting = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">String s=greeting.substring(<span class="number">0</span>,<span class="number">3</span>);</span><br><span class="line"><span class="comment">//创建了一由字符“Hel”组成的字符串</span></span><br></pre></td></tr></table></figure>
+
+<p>2.拼接</p>
+<ul>
+<li>使用+</li>
+</ul>
+<blockquote>
+<p>当将一个字符串与一个非字符串的值进行拼接时，后者被转换成字符串</p>
+</blockquote>
+<ul>
+<li>如果需要把多个字符串放在一起，用一个定界符分隔，使用静态join方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String all = String.join(<span class="string">&quot;/&quot;</span>,<span class="string">&quot;S&quot;</span>,<span class="string">&quot;M&quot;</span>,<span class="string">&quot;L&quot;</span>,<span class="string">&quot;XL&quot;</span>);</span><br><span class="line"><span class="comment">//all is the string &quot;S/M/L/XL&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>3.不可变字符串</p>
+<p>4.检测字符串是否相等</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">s.equals(t)<span class="comment">//如果字符串s与字符串t相等，返回true，否则返回false，s与t可以是字符串变量也可以是字符串字面量</span></span><br><span class="line">           <span class="comment">//equalsIgnoreCase不区分大小写</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>一定不能用==检测两个字符串是否相等，这个运算符只能确定两个字符串是否放在同一位置上。当然如果字符串放在同一位置上，它们必然相等，但完全有可能将内容相同的多个字符串拷贝放置在不同的位置上</li>
+</ul>
+<p>5.空串与null串</p>
+<blockquote>
+<p>空串是长度为0的字符串</p>
+<p>可以用if（str.length() == 0）或 if（str.equals（“”））来检查一个字符串是否为空</p>
+<p>空串是一个java对象，有自己的串长度（0）和内容（空）</p>
+<p>String变量还可以存放一个特殊的值，名为null，这表明目前没有任何对象与该变量关联</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//检查一个字符串是否为null</span></span><br><span class="line"><span class="keyword">if</span>（str == <span class="keyword">null</span>）</span><br><span class="line"><span class="comment">//检查一个字符串既不是null也不为空串</span></span><br><span class="line"><span class="keyword">if</span>（str ！= <span class="keyword">null</span> &amp;&amp; str.length（） ！= <span class="number">0</span>）</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-7-输入输出"><a href="#3-7-输入输出" class="headerlink" title="3.7 输入输出"></a>3.7 输入输出</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"></span><br><span class="line">System.out.print(<span class="string">&quot;What&#x27;s your name ?&quot;</span>);</span><br><span class="line"><span class="comment">//读取输入的下一行内容</span></span><br><span class="line">String name = in.nextLine();</span><br><span class="line"></span><br><span class="line">System.out.print(<span class="string">&quot;How old are you ?&quot;</span>);</span><br><span class="line"><span class="comment">//读取输入的下一个整数</span></span><br><span class="line"><span class="keyword">int</span> age = in.nextInt();</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line">System.out.println(<span class="string">&quot; Hello, &quot;</span> + name + <span class="string">&quot;, Next year, you will be &quot;</span> + (age + <span class="number">1</span>) );</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-8-控制流程"><a href="#3-8-控制流程" class="headerlink" title="3.8 控制流程"></a>3.8 控制流程</h2><ul>
+<li><p>不能在嵌套的两个块中声明同名变量，C++中可以</p>
+</li>
+<li><p>条件语句</p>
+</li>
+<li><p>循环语句</p>
+<blockquote>
+<p>case标签可以是：</p>
+<p>类型为char、byte、short、int的常量表达式</p>
+<p>枚举常量</p>
+<p>从java7开始，还可以是字符串字面量</p>
+</blockquote>
+</li>
+<li><p>带标签的break，只能跳出语句块，而不能跳入</p>
+</li>
+</ul>
+<h2 id="3-9-大数值"><a href="#3-9-大数值" class="headerlink" title="3.9 大数值"></a>3.9 大数值</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//BigInteger类实现了任意精度的整数运算</span></span><br><span class="line"><span class="comment">//BigDecimal类实现了任意精度的浮点数运算</span></span><br><span class="line"><span class="comment">//使用静态的valueOf方法可以将普通数值转换为大数值</span></span><br><span class="line">BigInteger a = BigInteger.valueOf(<span class="number">100</span>);</span><br><span class="line"><span class="comment">//不能使用算术运算符如（+和*）处理大数值，而需要使用大数值类的add和multiply方法</span></span><br><span class="line">BigInteger c = a.add(a);<span class="comment">// c = a + a</span></span><br><span class="line">BigInteger d = c.multiply(a.add(BigInteger.valueOf(<span class="number">2</span>)));<span class="comment">// d = c * (a + 2 )</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-10-数组"><a href="#3-10-数组" class="headerlink" title="3.10 数组"></a>3.10 数组</h2><blockquote>
+<p>创建数组时</p>
+<p>数字数组所有元素初始化为0</p>
+<p>boolean数组元素初始化为false</p>
+<p>对象数组的元素则初始化为一个特殊值null，表示这些元素还未存放任何对象</p>
+<p>array.length获取数组中元素个数</p>
+</blockquote>
+<ul>
+<li>for each循环语句的循环变量将会遍历数组中的每个元素，而不需要使用下标值</li>
+<li>数组拷贝</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//数组a = Arrays.copeOf(数组b，数组b长度);</span></span><br><span class="line"><span class="comment">//第二个参数用来控制数组大小</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>命令行参数</p>
+</li>
+<li><p>数组排序</p>
+<blockquote>
+<p>//Arrays.sort()</p>
+</blockquote>
+</li>
+<li><p>多维数组、不规则数组</p>
+</li>
+</ul>
+<h1 id="第四章-对象与类"><a href="#第四章-对象与类" class="headerlink" title="第四章   对象与类"></a>第四章   对象与类</h1><h2 id="4-1-面向对象程序设计概述"><a href="#4-1-面向对象程序设计概述" class="headerlink" title="4.1 面向对象程序设计概述"></a>4.1 面向对象程序设计概述</h2><ol>
+<li>类是构造对象的模板或蓝图。由类构造对象的过程称为创建类的实例。</li>
+<li>封装，从形式上看，不过是将数据和行为组合在一个包中，并对对象的使用者隐藏了数据的实现方式。实现封装的关键在于绝对不能让类中的方法直接地访问其他类的实例域</li>
+<li>对象中的数据称为实例域，操纵数据的过程称为方法</li>
+<li>对每个特定的对象都有一组特定的实例域值，这些值的集合就是这个对象的当前状态</li>
+<li>通过扩展一个类来建立另外一个类的过程称为继承</li>
+<li>对象的三个主要特性</li>
+</ol>
+<blockquote>
+<p>对象的行为—可以对对象施加哪些操作，或可以对对象施加哪些方法?</p>
+<p>对象的状态—当施加那些方法时，对象如何响应?</p>
+<p>对象标识—如何辨别具有相同行为与状态的不同对象?</p>
+</blockquote>
+<p>​    7.类之间的关系：依赖（uses-a）、聚合（has-a）、继承（is-a）</p>
+<h2 id="4-2-使用预定义类"><a href="#4-2-使用预定义类" class="headerlink" title="4.2 使用预定义类"></a>4.2 使用预定义类</h2><h2 id="4-3-用户自定义类"><a href="#4-3-用户自定义类" class="headerlink" title="4.3 用户自定义类"></a>4.3 用户自定义类</h2><ul>
+<li>final实例域只读</li>
+</ul>
+<h2 id="4-4-静态域与静态方法"><a href="#4-4-静态域与静态方法" class="headerlink" title="4.4 静态域与静态方法"></a>4.4 静态域与静态方法</h2><h2 id="4-5-方法参数"><a href="#4-5-方法参数" class="headerlink" title="4.5 方法参数"></a>4.5 方法参数</h2><h2 id="4-6-对象构造"><a href="#4-6-对象构造" class="headerlink" title="4.6 对象构造"></a>4.6 对象构造</h2><ol>
+<li>重载：方法名相同，参数的个数和类型不同</li>
+</ol>
+<h2 id="4-7-包"><a href="#4-7-包" class="headerlink" title="4.7 包"></a>4.7 包</h2><ol>
+<li>导入问题</li>
+</ol>
+<blockquote>
+<p>import java.util.*;</p>
+<p>inmort java.sql.*;</p>
+<p>//两个包都有Date类，故增加</p>
+<p>import java.util.Date;</p>
+<p>//如果两个Date类都需要使用，在每个类名前加上完整的包名</p>
+</blockquote>
+<h2 id="4-8-类路径"><a href="#4-8-类路径" class="headerlink" title="4.8 类路径"></a>4.8 类路径</h2><h2 id="4-9-文档注释"><a href="#4-9-文档注释" class="headerlink" title="4.9 文档注释"></a>4.9 文档注释</h2><h2 id="4-10-类设计技巧"><a href="#4-10-类设计技巧" class="headerlink" title="4.10 类设计技巧"></a>4.10 类设计技巧</h2><p>应用这些技巧可以使设计出来的类更具有oop的专业水准</p>
+<ol>
+<li>一定要保证数据私有</li>
+<li>一定要对数据初始化</li>
+<li>不要在类中使用过多的基本类型</li>
+<li>不是所有的域都需要独立的域访问器和域更改器</li>
+<li>将职责过多的类进行分解</li>
+<li>类名和方法名要能够体现它们的职责</li>
+<li>优先使用不可变的类</li>
+</ol>
+<h1 id="第五章-继承"><a href="#第五章-继承" class="headerlink" title="第五章   继承"></a>第五章   继承</h1><h2 id="5-1-类、超类和子类"><a href="#5-1-类、超类和子类" class="headerlink" title="5.1 类、超类和子类"></a>5.1 类、超类和子类</h2><ul>
+<li>子类继承父类（超类）</li>
+<li>super啃老</li>
+</ul>
+<blockquote>
+<p>this的两个用途</p>
+<p>一是引用隐式参数，二是调用该类其他的构造器</p>
+<p>super的两个用途</p>
+<p>一是调用超类的方法，二是调用超类的构造器</p>
+</blockquote>
+<p>一个对象变量可以指示多种实际类型的现象称为多态，在运行时能够自动地选择调用哪个方法的现象称为动态绑定</p>
+<p>如果时private方法，static方法，final方法，构造器，那么编译器可以准确地知道应该调用哪个方法，这种调用方式称为静态绑定</p>
+<p>在覆盖一个方法时，子类方法不能低于超类方法的可见性，特别是，如果超类方法是public，子类方法一定要声明为public</p>
+<ul>
+<li>final类不可移被继承，其类中的所有方法自动地成为final方法</li>
+</ul>
+<blockquote>
+<p>只能在继承层次内进行类型转换</p>
+<p>在将超类转换成子类之前，应该用instanceof进行检查如下,</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (staff[<span class="number">1</span>] <span class="keyword">instanceof</span> Manager) &#123;</span><br><span class="line">    boss = (Manager) staff[<span class="number">1</span>];</span><br><span class="line">    ...</span><br><span class="line">&#125;<span class="comment">//如果类型转换不成功，编译器就不会进行这个转换</span></span><br></pre></td></tr></table></figure>
+
+<p>访问修饰符</p>
+<blockquote>
+<p>private：仅对本类可见</p>
+<p>public：对所有类可见</p>
+<p>protected：对本包和所有子类可见</p>
+<p>无修饰符：对本包可见</p>
+</blockquote>
+<h2 id="5-2-Object：所有类的超类"><a href="#5-2-Object：所有类的超类" class="headerlink" title="5.2 Object：所有类的超类"></a>5.2 Object：所有类的超类</h2><h2 id="5-3-泛型数组列表"><a href="#5-3-泛型数组列表" class="headerlink" title="5.3 泛型数组列表"></a>5.3 泛型数组列表</h2><h2 id="5-4-对象包装器与自动装箱"><a href="#5-4-对象包装器与自动装箱" class="headerlink" title="5.4 对象包装器与自动装箱"></a>5.4 对象包装器与自动装箱</h2><p>有时需要将int这样的基本类型转换为对象，所有的基本类型都有一个与之对应的类，例如Integer类对应的基本类型是int，通常这些类称为包装器。对象包装器类是final，不能定义他们的子类</p>
+<h2 id="5-5-参数数量可变的方法"><a href="#5-5-参数数量可变的方法" class="headerlink" title="5.5 参数数量可变的方法"></a>5.5 参数数量可变的方法</h2><h2 id="5-6-枚举类"><a href="#5-6-枚举类" class="headerlink" title="5.6 枚举类"></a>5.6 枚举类</h2><ul>
+<li>在比较两个枚举类型的值时，永远不要调用equals，而直接使用==就可以了</li>
+</ul>
+<h2 id="5-7-反射"><a href="#5-7-反射" class="headerlink" title="5.7 反射"></a>5.7 反射</h2><ul>
+<li>能够分析类能力的程序称为反射</li>
+<li>反射是一种功能强大且复杂的机制，使用它的主要是工具构造者，而不是应用程序员</li>
+</ul>
+<h2 id="5-8-继承的设计技巧"><a href="#5-8-继承的设计技巧" class="headerlink" title="5.8 继承的设计技巧"></a>5.8 继承的设计技巧</h2><ol>
+<li>将公共操作和域放在超类</li>
+<li>不要使用受保护的域</li>
+<li>使用继承实现“is-a”关系</li>
+<li>除非所有继承的方法都有意义，否则不要使用继承</li>
+<li>在覆盖方法时，不要改变预期的行为</li>
+<li>使用多态，而非类型信息</li>
+<li>不要过多地使用反射</li>
+</ol>
+<h1 id="第六章-接口、lambda表达式与内部类"><a href="#第六章-接口、lambda表达式与内部类" class="headerlink" title="第六章 接口、lambda表达式与内部类"></a>第六章 接口、lambda表达式与内部类</h1><h2 id="6-1-接口"><a href="#6-1-接口" class="headerlink" title="6.1 接口"></a>6.1 接口</h2><ul>
+<li>将类声明为实现某个接口需使用关键字implements</li>
+<li>接口中的所有方法都自动的是public，在实现接口时必须把方法声明为public</li>
+<li>不能用new运算符实例化一个接口</li>
+</ul>
+<h2 id="6-2-接口实例"><a href="#6-2-接口实例" class="headerlink" title="6.2 接口实例"></a>6.2 接口实例</h2><h2 id="6-3-lambda表达式"><a href="#6-3-lambda表达式" class="headerlink" title="6.3 lambda表达式"></a>6.3 lambda表达式</h2><ul>
+<li>参数箭头表达式，无需指定返回类型，总是会由上下文推导得出。</li>
+<li>如果一个lambda表达式只在某些分支返回一个值，而在另一些分支不返回值，这是不合法的</li>
+</ul>
+<h2 id="6-4-内部类"><a href="#6-4-内部类" class="headerlink" title="6.4 内部类"></a>6.4 内部类</h2><ul>
+<li>为什么需要使用内部类</li>
+</ul>
+<blockquote>
+<p>内部类方法可以访问该类定义所在的作用域中的数据，包括私有的数据</p>
+<p>内部类可以对同一个包中的其他类隐藏起来</p>
+<p>当想要定义一个回调函数且不想编写大量代码时，使用匿名内部类比较便捷</p>
+</blockquote>
+<h2 id="6-5-代理"><a href="#6-5-代理" class="headerlink" title="6.5 代理"></a>6.5 代理</h2><ul>
+<li>对于系统程序设计人员来说，代理带来的灵活性十分重要</li>
+</ul>
+<h1 id="第七章-异常、断言和日志"><a href="#第七章-异常、断言和日志" class="headerlink" title="第七章 异常、断言和日志"></a>第七章 异常、断言和日志</h1></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/tit.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tryorish</div><div class="author-info__description">风虽大，都绕过我灵魂</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Tryorish/Tryorish.github.io"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Tryorish/Tryorish.github.io" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/img/qq.jpg" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/06/30/java%E8%BF%9B%E9%98%B6/" title="java进阶"><img src="/img/java.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java进阶"/></a><div class="content"><a class="title" href="/2022/06/30/java%E8%BF%9B%E9%98%B6/" title="java进阶">java进阶</a><time datetime="2022-06-30T05:43:48.000Z" title="发表于 2022-06-30 13:43:48">2022-06-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/31/JavaWeb%E7%AC%94%E8%AE%B0/" title="JavaWeb笔记"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaWeb笔记"/></a><div class="content"><a class="title" href="/2022/05/31/JavaWeb%E7%AC%94%E8%AE%B0/" title="JavaWeb笔记">JavaWeb笔记</a><time datetime="2022-05-31T08:51:57.000Z" title="发表于 2022-05-31 16:51:57">2022-05-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/07/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/" title="字节青训营后端学习"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="字节青训营后端学习"/></a><div class="content"><a class="title" href="/2022/05/07/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/" title="字节青训营后端学习">字节青训营后端学习</a><time datetime="2022-05-07T05:26:11.000Z" title="发表于 2022-05-07 13:26:11">2022-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/26/MySQL%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF/" title="MySQL从零到删库跑路"><img src="/img/MySQL.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL从零到删库跑路"/></a><div class="content"><a class="title" href="/2022/04/26/MySQL%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF/" title="MySQL从零到删库跑路">MySQL从零到删库跑路</a><time datetime="2022-04-26T05:55:51.000Z" title="发表于 2022-04-26 13:55:51">2022-04-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="计算机网络学习笔记"><img src="/img/er.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络学习笔记"/></a><div class="content"><a class="title" href="/2022/04/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="计算机网络学习笔记">计算机网络学习笔记</a><time datetime="2022-04-13T02:35:24.000Z" title="发表于 2022-04-13 10:35:24">2022-04-13</time></div></div></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/06/"><span class="card-archive-list-date">六月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/04/"><span class="card-archive-list-date">四月 2022</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/01/"><span class="card-archive-list-date">一月 2022</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">8</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-04-09T02:56:50.480Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Tryorish</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

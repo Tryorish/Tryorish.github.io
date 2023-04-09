@@ -1,0 +1,703 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>步入Linux的现代方法 | Tryorish</title><meta name="author" content="Tryorish"><meta name="copyright" content="Tryorish"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="0.Linux初步认识1、系统的认识 鼠标能点、键盘能输入东西、阅读看电影，还可以扩展安装一些软件  人机交互   2、Linux操作系统认识以及开源的提出，Linux有多个发行版本，搞清楚他们是什么 世界上目前流行的电脑系统：  Windows—微软—比尔盖茨 Linux（严格来说是操作系统的内核）比如 吃核桃吃的是核桃仁 Unix（Linux的爸爸） C   开放源代码（开源）：我写的代码我公">
+<meta property="og:type" content="article">
+<meta property="og:title" content="步入Linux的现代方法">
+<meta property="og:url" content="http://example.com/2022/04/09/%E6%AD%A5%E5%85%A5Linux%E7%9A%84%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="Tryorish">
+<meta property="og:description" content="0.Linux初步认识1、系统的认识 鼠标能点、键盘能输入东西、阅读看电影，还可以扩展安装一些软件  人机交互   2、Linux操作系统认识以及开源的提出，Linux有多个发行版本，搞清楚他们是什么 世界上目前流行的电脑系统：  Windows—微软—比尔盖茨 Linux（严格来说是操作系统的内核）比如 吃核桃吃的是核桃仁 Unix（Linux的爸爸） C   开放源代码（开源）：我写的代码我公">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/yi.jpg">
+<meta property="article:published_time" content="2022-04-09T10:27:36.000Z">
+<meta property="article:modified_time" content="2022-04-12T14:21:44.346Z">
+<meta property="article:author" content="Tryorish">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/yi.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/04/09/%E6%AD%A5%E5%85%A5Linux%E7%9A%84%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '步入Linux的现代方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-04-12 22:21:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/iconfont.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/tit.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/yi.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Tryorish</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">步入Linux的现代方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-09T10:27:36.000Z" title="发表于 2022-04-09 18:27:36">2022-04-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-12T14:21:44.346Z" title="更新于 2022-04-12 22:21:44">2022-04-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="步入Linux的现代方法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="0-Linux初步认识"><a href="#0-Linux初步认识" class="headerlink" title="0.Linux初步认识"></a>0.Linux初步认识</h1><h2 id="1、系统的认识"><a href="#1、系统的认识" class="headerlink" title="1、系统的认识"></a>1、系统的认识</h2><ul>
+<li><p>鼠标能点、键盘能输入东西、阅读看电影，还可以扩展安装一些软件</p>
+</li>
+<li><p>人机交互</p>
+</li>
+</ul>
+<h2 id="2、Linux操作系统认识以及开源的提出，Linux有多个发行版本，搞清楚他们是什么"><a href="#2、Linux操作系统认识以及开源的提出，Linux有多个发行版本，搞清楚他们是什么" class="headerlink" title="2、Linux操作系统认识以及开源的提出，Linux有多个发行版本，搞清楚他们是什么"></a>2、Linux操作系统认识以及开源的提出，Linux有多个发行版本，搞清楚他们是什么</h2><ul>
+<li><p>世界上目前流行的电脑系统：</p>
+<ol>
+<li>Windows—微软—比尔盖茨</li>
+<li>Linux（严格来说是操作系统的内核）比如 吃核桃吃的是核桃仁</li>
+<li>Unix（Linux的爸爸） C</li>
+</ol>
+</li>
+<li><p>开放源代码（开源）：我写的代码我公开 公众于世界</p>
+</li>
+<li><p>安卓（手机）核心为Linux  开源 -&gt; mi oppo vivo huawei ….</p>
+<p>基于Android xxx的xx(MIUI)</p>
+<p>Google Pixel 最早的安卓手机 真正的安卓系统 国内不出售</p>
+</li>
+<li><p>Linux 开源-&gt; Ubuntu、CentOS、Red Hat、Kali…</p>
+</li>
+</ul>
+<h2 id="3、开源一定免费吗"><a href="#3、开源一定免费吗" class="headerlink" title="3、开源一定免费吗"></a>3、开源一定免费吗</h2><ul>
+<li>企业使用等一些盈利行为需要付费</li>
+</ul>
+<h2 id="4、Linux用途以及千奇百怪的发行版本"><a href="#4、Linux用途以及千奇百怪的发行版本" class="headerlink" title="4、Linux用途以及千奇百怪的发行版本"></a>4、Linux用途以及千奇百怪的发行版本</h2><ul>
+<li><p>Linux主要运行在公司服务器和其他大型平台上，也广泛应用在嵌入式系统上，如：手机、平板电脑、路由器、电视和电子游戏机等</p>
+</li>
+<li><p>三个主流发行版本及其派生版本</p>
+<p>Debian—&gt;Ubuntu  Kali</p>
+<p>Fedora—-&gt; RedHat  CentOS…</p>
+<p>openSUSE（德国用的比较多）</p>
+<p>小米（华为）—&gt;红米（荣耀）</p>
+</li>
+</ul>
+<h1 id="1-VMware虚拟机使用"><a href="#1-VMware虚拟机使用" class="headerlink" title="1.VMware虚拟机使用"></a>1.VMware虚拟机使用</h1><h2 id="1-VMware虚拟机"><a href="#1-VMware虚拟机" class="headerlink" title="1.VMware虚拟机"></a>1.VMware虚拟机</h2><ul>
+<li><p>Linux安装</p>
+<ol>
+<li>实体机  硬件不支持  不要装</li>
+<li>双系统  不要装</li>
+<li>虚拟机  yes！</li>
+</ol>
+</li>
+<li><p>软件版本 不应盲目追求新   企业都是追求的稳定</p>
+</li>
+</ul>
+<h1 id="2-Ubuntu安装"><a href="#2-Ubuntu安装" class="headerlink" title="2.Ubuntu安装"></a>2.Ubuntu安装</h1><h1 id="3-步入Linux的世界"><a href="#3-步入Linux的世界" class="headerlink" title="3.步入Linux的世界"></a>3.步入Linux的世界</h1><h2 id="1、Linux入门究竟要学什么—四大组成部分"><a href="#1、Linux入门究竟要学什么—四大组成部分" class="headerlink" title="1、Linux入门究竟要学什么—四大组成部分"></a>1、Linux入门究竟要学什么—四大组成部分</h2><ul>
+<li><p>入门Linux不是学“Linux”</p>
+</li>
+<li><p>我们要学的</p>
+<ol>
+<li>体验：比较和其他系统的不同和相同点</li>
+<li>Linux   Shell  </li>
+</ol>
+</li>
+<li><p>Linux操作系统四个部分</p>
+<ol>
+<li>Linux kernel  内核</li>
+<li>GNU工具</li>
+<li>GUI Desktop环境</li>
+<li>Application 应用</li>
+</ol>
+</li>
+<li><p>Linux真正的名字：GNU/Linux</p>
+</li>
+</ul>
+<h2 id="2、GUI和GNU—Linux系统组成"><a href="#2、GUI和GNU—Linux系统组成" class="headerlink" title="2、GUI和GNU—Linux系统组成"></a>2、GUI和GNU—Linux系统组成</h2><ul>
+<li>GUI管界面     GNU管命令</li>
+<li>Linux 内核管GUI和GNU</li>
+<li>Linux内核由硬件管</li>
+</ul>
+<h2 id="3、Linux内核组成部分"><a href="#3、Linux内核组成部分" class="headerlink" title="3、Linux内核组成部分"></a>3、Linux内核组成部分</h2><ul>
+<li>Linux内核：<ol>
+<li>硬件设备  管理使用</li>
+<li>软件程序（系统）—-&gt;操作软件</li>
+<li>系统内存</li>
+<li>文件管理  保存文件 、删除文件、修改文件…</li>
+</ol>
+</li>
+</ul>
+<h2 id="4、文件系统"><a href="#4、文件系统" class="headerlink" title="4、文件系统"></a>4、文件系统</h2><ul>
+<li>文件系统：读、写的标准</li>
+</ul>
+<blockquote>
+<p>   文件系统  -  Linux  支持的文件系统类型：ext,  ext2, ext3, ext4, hpfs, iso9660, JFS, minix,<br>   msdos, ncpfs, nfs, ntfs, proc, Reiserfs, smb, sysv, umsdos, vfat, XFS, xiafs</p>
+</blockquote>
+<h2 id="5、GNU核心—coreutils-and-shell"><a href="#5、GNU核心—coreutils-and-shell" class="headerlink" title="5、GNU核心—coreutils and shell"></a>5、GNU核心—coreutils and shell</h2><ul>
+<li><p>GNU组织</p>
+</li>
+<li><p>Unix上具有的一些软件，LInux内核本身没有，所以GNU他们模仿Unix，为Linux写了一些必要的软件</p>
+</li>
+<li><p>GNU核心：原本在Unix的一些命令和工具，被模仿（移植）到了Linux上</p>
+</li>
+<li><p>供Linux使用的这套工具：coreutils coreutilities  软件包</p>
+<ol>
+<li>用来处理文件的工具</li>
+<li>用来操作文本的工具</li>
+<li>用来管理进程的工具</li>
+</ol>
+</li>
+<li><p>shell 提供给用户使用的软件：用户拿它来使用电脑，并且和电脑交互</p>
+</li>
+<li><p>命令行壳层提供一个命令行界面（CLI）；而图形壳层提供一个图形用户界面（GUI）</p>
+</li>
+<li><p>Linux shell通常说的是CLI   Command-Line Interface</p>
+</li>
+</ul>
+<h2 id="6、Shell—CLI和GUI"><a href="#6、Shell—CLI和GUI" class="headerlink" title="6、Shell—CLI和GUI"></a>6、Shell—CLI和GUI</h2><ul>
+<li><p>CLI shell</p>
+</li>
+<li><p>bash shell 基础shell</p>
+<p>第三方shell ：zsh     ash  korn   tcsh </p>
+</li>
+<li><p>oh-my-zsh项目</p>
+</li>
+</ul>
+<h2 id="7、GUI-Desktop—XW-KDE-GNOME"><a href="#7、GUI-Desktop—XW-KDE-GNOME" class="headerlink" title="7、GUI Desktop—XW KDE GNOME"></a>7、GUI Desktop—XW KDE GNOME</h2><ul>
+<li>GUI：<ol>
+<li>X Windows</li>
+<li>KDE</li>
+<li>GNOME</li>
+<li>Unity(Ubuntu)</li>
+</ol>
+</li>
+</ul>
+<h1 id="4-终于！shell命令，我来了！"><a href="#4-终于！shell命令，我来了！" class="headerlink" title="4.终于！shell命令，我来了！"></a>4.终于！shell命令，我来了！</h1><h2 id="1、CLI准备"><a href="#1、CLI准备" class="headerlink" title="1、CLI准备"></a>1、CLI准备</h2><h2 id="2、打开CLI终端terminal"><a href="#2、打开CLI终端terminal" class="headerlink" title="2、打开CLI终端terminal"></a>2、打开CLI终端terminal</h2><blockquote>
+<p>ls  显示当前目录下所有文件及文件夹（不包括隐藏文件）</p>
+<p>ls -a 显示隐藏文件</p>
+<p>tryorish@tryorish-virtual-machine:~$ </p>
+<p>用户名@计算机名：当前所在目录 $等待用户输入  </p>
+<p>~表示用户home目录</p>
+</blockquote>
+<h2 id="3、搞定Linux命令参数，自由使用命令"><a href="#3、搞定Linux命令参数，自由使用命令" class="headerlink" title="3、搞定Linux命令参数，自由使用命令"></a>3、搞定Linux命令参数，自由使用命令</h2><blockquote>
+<p>ll  显示文件的详细信息</p>
+<p>man ls  打开ls操作文档</p>
+</blockquote>
+<h2 id="4、Linux根目录"><a href="#4、Linux根目录" class="headerlink" title="4、Linux根目录"></a>4、Linux根目录</h2><blockquote>
+<p>Linux一切皆文件</p>
+<p>无盘符概念</p>
+<p>cd 切换目录</p>
+<p>cd .. 返回上一层目录</p>
+<p>\反斜线 windows</p>
+<p>/斜线 Linux</p>
+<p>/ Linux最终根目录</p>
+</blockquote>
+<h2 id="5、Linux根目录解析"><a href="#5、Linux根目录解析" class="headerlink" title="5、Linux根目录解析"></a>5、Linux根目录解析</h2><blockquote>
+<p>/bin  二进制目录 GNU工具 ls等自带的命令 存放许多用户级</p>
+<p>/cdrom 光盘目录</p>
+<p>/etc 系统配置文件目录</p>
+<p>/home 主目录，显示所有用户目录</p>
+<p>/lib 库目录</p>
+<p>/lost+found..  断电时的临时文件目录</p>
+<p>/mnt 挂载目录  u盘   挂载—-外在的设备和电脑进行连接</p>
+<p>/proc 伪文件系统</p>
+<p>/run 运行目录</p>
+<p>/snap ubuntu自带的</p>
+<p>/tmp 临时文件目录</p>
+<p>/var 可变目录 log文件等</p>
+<p>/boot 启动目录</p>
+<p>/dev 设备目录</p>
+<p>/media 媒体目录</p>
+<p>/opt 可选目录</p>
+<p>/root 管理员主目录</p>
+<p>/sbin 系统二进制目录，GNU高级管理员使用的命令工具</p>
+<p>/srv 服务目录   本地服务</p>
+<p>/usr 用户二进制目录，普通用户使用的GNU工具</p>
+<p>FHS  文件系统层级标准</p>
+</blockquote>
+<h2 id="6、cd命令"><a href="#6、cd命令" class="headerlink" title="6、cd命令"></a>6、cd命令</h2><blockquote>
+<p>.代表当前目录  ..代表上一层目录</p>
+</blockquote>
+<h2 id="7、Ctrl-C在Linux上是啥"><a href="#7、Ctrl-C在Linux上是啥" class="headerlink" title="7、Ctrl+C在Linux上是啥"></a>7、Ctrl+C在Linux上是啥</h2><blockquote>
+<p>Ctrl c 强制退出</p>
+<p>Ctrl shift c 复制</p>
+<p>Ctrl shift v 粘贴</p>
+</blockquote>
+<h2 id="8、绝对路径"><a href="#8、绝对路径" class="headerlink" title="8、绝对路径"></a>8、绝对路径</h2><blockquote>
+<p>D:\app\yuanshen\Genshin Impact</p>
+<p>盘符：\文件夹...\文件名.文件后缀</p>
+<p>不论到天涯海角，只要给你绝对路径，你就能找到她（全）</p>
+</blockquote>
+<h2 id="9、相对路径"><a href="#9、相对路径" class="headerlink" title="9、相对路径"></a>9、相对路径</h2><blockquote>
+<p>一定要设置故事背景前提，即你现在在哪，相对你的目标而言，你在哪  </p>
+<ol>
+<li>北京</li>
+<li>北京朝阳区</li>
+<li>上海</li>
+<li>肯尼亚</li>
+</ol>
+</blockquote>
+<h2 id="10、Linux上的路径"><a href="#10、Linux上的路径" class="headerlink" title="10、Linux上的路径"></a>10、Linux上的路径</h2><blockquote>
+<p>/Documents/doc/1.txt  绝对路径</p>
+<p>根目录下的文件（无法保存，没有这些文件夹）</p>
+<p>Documents/doc/1.txt (./Documents/doc/1.txt )  相对路径</p>
+<p>用户目录下的文件</p>
+</blockquote>
+<h2 id="11、如何练习非非常重要"><a href="#11、如何练习非非常重要" class="headerlink" title="11、如何练习非非常重要"></a>11、如何练习非非常重要</h2><blockquote>
+<p>随便玩</p>
+</blockquote>
+<h2 id="12、ls进阶用法文件夹下-各种匹配过滤符号"><a href="#12、ls进阶用法文件夹下-各种匹配过滤符号" class="headerlink" title="12、ls进阶用法文件夹下 各种匹配过滤符号"></a>12、ls进阶用法文件夹下 各种匹配过滤符号</h2><blockquote>
+<p>ls 【路径】 -FR 遍历文件夹下的文件</p>
+<p>组合命令</p>
+<p>过滤</p>
+<p>文件扩展匹配符</p>
+<p>*代表多个符号</p>
+<p>？代表一个占位符号</p>
+<p>元字符通配符</p>
+<p>[]限定范围</p>
+</blockquote>
+<h2 id="13、touch"><a href="#13、touch" class="headerlink" title="13、touch"></a>13、touch</h2><blockquote>
+<p>touch 文件名  创建一个空文件，更新写入时间</p>
+</blockquote>
+<h2 id="14、cp"><a href="#14、cp" class="headerlink" title="14、cp"></a>14、cp</h2><blockquote>
+<p>cp 你想复制的文件 你想复制到哪 </p>
+<p>复制文件或文件夹到目标文件或目录中</p>
+<p>目标文件不存在 的话会自动创建</p>
+<p>目标文件存在会覆盖（慎用）</p>
+<p>-i  覆盖前询问</p>
+<p>-r 连同文件夹及文件夹里的文件一起复制</p>
+<p>cp 文件 文件</p>
+<p>cp 文件 路径</p>
+<p>cp 路径 路径</p>
+<p>cp 路径 文件</p>
+</blockquote>
+<h2 id="15、练习cp递归和小技巧"><a href="#15、练习cp递归和小技巧" class="headerlink" title="15、练习cp递归和小技巧"></a>15、练习cp递归和小技巧</h2><blockquote>
+<p>cd -切换至上一次操作的目录</p>
+</blockquote>
+<h2 id="16、终端光标移动技巧"><a href="#16、终端光标移动技巧" class="headerlink" title="16、终端光标移动技巧"></a>16、终端光标移动技巧</h2><blockquote>
+<p>Ctrl 左右键跳单词移动光标</p>
+<p>Ctrl 制表符 大制表</p>
+<p>Ctrl e 跳到结尾</p>
+<p>Ctrl b 左移一格</p>
+<p>Ctrl f 右移一格</p>
+<p>Ctrl h 删除一格</p>
+<p>Ctrl t 将一格移动到指定位置</p>
+<p>Ctrl u 清除光标之前</p>
+<p>Ctrl k 清除光标之后</p>
+</blockquote>
+<h2 id="17、lnk链接文件"><a href="#17、lnk链接文件" class="headerlink" title="17、lnk链接文件"></a>17、lnk链接文件</h2><blockquote>
+<p>链接文件</p>
+<ol>
+<li><p>符号链接(软链接)—-快捷方式</p>
+<p>原来的文件/文件夹必须是存在的</p>
+</li>
+<li><p>硬链接—副本</p>
+<p>原来的文件/文件夹必须是存在的</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="18、符号链接和硬链接"><a href="#18、符号链接和硬链接" class="headerlink" title="18、符号链接和硬链接"></a>18、符号链接和硬链接</h2><blockquote>
+<p>ln -s  源文件名 快捷方式名 创建软链接</p>
+<p>ln 源文件名 快捷方式名 创建硬链接</p>
+<p>硬链接只能在同一个文件系统下创建</p>
+</blockquote>
+<h2 id="19、注意事项"><a href="#19、注意事项" class="headerlink" title="19、注意事项"></a>19、注意事项</h2><h2 id="20、mv重命名"><a href="#20、mv重命名" class="headerlink" title="20、mv重命名"></a>20、mv重命名</h2><blockquote>
+<p>mv 移动或重命名文件</p>
+</blockquote>
+<h2 id="21、移动和骚操作"><a href="#21、移动和骚操作" class="headerlink" title="21、移动和骚操作"></a>21、移动和骚操作</h2><blockquote>
+<p>cd !$ 执行上一条命令的路径</p>
+</blockquote>
+<h2 id="22、rm-Linux最危险的命令之一，删库跑路了解一下"><a href="#22、rm-Linux最危险的命令之一，删库跑路了解一下" class="headerlink" title="22、rm Linux最危险的命令之一，删库跑路了解一下"></a>22、rm Linux最危险的命令之一，删库跑路了解一下</h2><blockquote>
+<p>rm -rf /*     危危危！</p>
+</blockquote>
+<h2 id="23、创建删除文件夹，文件类型"><a href="#23、创建删除文件夹，文件类型" class="headerlink" title="23、创建删除文件夹，文件类型"></a>23、创建删除文件夹，文件类型</h2><blockquote>
+<p>mkdir 创建文件夹</p>
+<p>-p 创建父目录</p>
+<p>rmdir 只能删空文件夹（还得是rm）</p>
+<p>file 文件名查看文件类型</p>
+</blockquote>
+<h2 id="24、cat，more，less查看文件命令"><a href="#24、cat，more，less查看文件命令" class="headerlink" title="24、cat，more，less查看文件命令"></a>24、cat，more，less查看文件命令</h2><blockquote>
+<p>cat 查看文件内容（内容较长时不易看）</p>
+<p>-A 展现所有内容{换行、tab…}</p>
+<p>-n 显示行号</p>
+<p>more 查看文件内容（全屏按页显示）</p>
+<p>less 查看文件内容（可以上下翻页）</p>
+</blockquote>
+<h2 id="25、tail和head"><a href="#25、tail和head" class="headerlink" title="25、tail和head"></a>25、tail和head</h2><blockquote>
+<p>tail 显示文件指定的末尾若干行</p>
+<p>tail -n 行数 文件名</p>
+<p>head -n 行数 文件名</p>
+</blockquote>
+<h1 id="5-更上一层系统上的shell"><a href="#5-更上一层系统上的shell" class="headerlink" title="5.更上一层系统上的shell"></a>5.更上一层系统上的shell</h1><h2 id="1、认识任务管理器"><a href="#1、认识任务管理器" class="headerlink" title="1、认识任务管理器"></a>1、认识任务管理器</h2><blockquote>
+<p>服务   随时随地等待你，为你服务</p>
+</blockquote>
+<h2 id="2、Linux当中的任务管理器"><a href="#2、Linux当中的任务管理器" class="headerlink" title="2、Linux当中的任务管理器"></a>2、Linux当中的任务管理器</h2><blockquote>
+<p>system monitor</p>
+<p>processes 进程</p>
+<p>resources 资源</p>
+<p>file systems 文件系统</p>
+<p>top 动态查看系统状态</p>
+<p>ps 当前进程</p>
+<p>ps -aux | grep named 查看named进程详细信息</p>
+</blockquote>
+<h2 id="3、kill"><a href="#3、kill" class="headerlink" title="3、kill"></a>3、kill</h2><blockquote>
+<p>gedit 打开记事本</p>
+<p>kill 加pid 干掉为pid的进程</p>
+<p>-9  强制干掉</p>
+</blockquote>
+<h2 id="4、挂载"><a href="#4、挂载" class="headerlink" title="4、挂载"></a>4、挂载</h2><blockquote>
+<p>挂载       将一个硬件插入电脑中，电脑创建一个临时的虚拟盘供用户使用的过程</p>
+<p>放在media文件夹中</p>
+</blockquote>
+<h2 id="5、mount"><a href="#5、mount" class="headerlink" title="5、mount"></a>5、mount</h2><blockquote>
+<p>sudo mount  真实设备路径 映射到的路径   切换挂载</p>
+<p>sudo umount 卸载挂载目录  不能卸载正在使用的挂载目录</p>
+</blockquote>
+<h2 id="6、为什么要有挂载"><a href="#6、为什么要有挂载" class="headerlink" title="6、为什么要有挂载"></a>6、为什么要有挂载</h2><blockquote>
+<p>一些的东西无法自动挂载需要手动搞</p>
+<p>防止u盘自动播放恶意脚本</p>
+</blockquote>
+<h2 id="7、安卓挂载"><a href="#7、安卓挂载" class="headerlink" title="7、安卓挂载"></a>7、安卓挂载</h2><blockquote>
+<p>把分区挂载到目录中</p>
+</blockquote>
+<h2 id="8、df和du"><a href="#8、df和du" class="headerlink" title="8、df和du"></a>8、df和du</h2><blockquote>
+<p>df 显示挂载分区  （磁盘相关信息）</p>
+<p>-h 以便于人看的大小单位方式显示 </p>
+<p>把分区挂载到目录</p>
+<p>du  文件夹使用状况</p>
+<p>-h 以便于人看的大小单位方式显示 </p>
+</blockquote>
+<h2 id="9、sort文件排序，grep搜索"><a href="#9、sort文件排序，grep搜索" class="headerlink" title="9、sort文件排序，grep搜索"></a>9、sort文件排序，grep搜索</h2><blockquote>
+<p>sort  按一定的排序显示出来  原文件不影响</p>
+<p>-n 按数字大小进行排序</p>
+<p>-r 倒序</p>
+<p>-M 按月份排</p>
+<p>grep  字符串  路径  搜索含该字符串的行</p>
+</blockquote>
+<h2 id="10、打包压缩归档解压缩"><a href="#10、打包压缩归档解压缩" class="headerlink" title="10、打包压缩归档解压缩"></a>10、打包压缩归档解压缩</h2><blockquote>
+<p>gzip  .gz</p>
+<p>zip .zip</p>
+<p>bzip2 .bz2</p>
+<p>tar 打包</p>
+<p>.tar.gz  先打包成一个文件然后再压缩</p>
+<p>-z 有gzip性质的</p>
+<p>-j 有bz2性质的</p>
+<p>-c 创建一个新归档</p>
+<p>-f 归档名</p>
+<p>-v 显示所有过程</p>
+<p>-x 解压</p>
+<p>tar -zcvf  压缩包名字.tar.gz  要打包的文件夹</p>
+</blockquote>
+<h2 id="11、sever上安装vmwaretools的方式"><a href="#11、sever上安装vmwaretools的方式" class="headerlink" title="11、sever上安装vmwaretools的方式"></a>11、sever上安装vmwaretools的方式</h2><blockquote>
+<p>命令</p>
+</blockquote>
+<h1 id="6-父子shell"><a href="#6-父子shell" class="headerlink" title="6.父子shell"></a>6.父子shell</h1><h2 id="1、父子shell的概念"><a href="#1、父子shell的概念" class="headerlink" title="1、父子shell的概念"></a>1、父子shell的概念</h2><blockquote>
+<p>PPID 父id</p>
+<p>bash 打开一个子shell（要一个小孩儿）</p>
+</blockquote>
+<h2 id="2、分号在命令里的作用"><a href="#2、分号在命令里的作用" class="headerlink" title="2、分号在命令里的作用"></a>2、分号在命令里的作用</h2><blockquote>
+<p>；分割命令依次执行</p>
+<p>（）创建一个子shell去执行该命令</p>
+</blockquote>
+<h2 id="3、sleep-和jobs"><a href="#3、sleep-和jobs" class="headerlink" title="3、sleep 和jobs"></a>3、sleep 和jobs</h2><blockquote>
+<p>sleep 秒数  延迟特定时间</p>
+<p>加&amp; 放后台执行</p>
+<p>jobs 查看后台</p>
+</blockquote>
+<h2 id="4、后台用法的举例"><a href="#4、后台用法的举例" class="headerlink" title="4、后台用法的举例"></a>4、后台用法的举例</h2><blockquote>
+<p>最小化</p>
+</blockquote>
+<h2 id="5、coproc协程"><a href="#5、coproc协程" class="headerlink" title="5、coproc协程"></a>5、coproc协程</h2><blockquote>
+<p>相当于创建子shell</p>
+</blockquote>
+<h2 id="6、外部命令和内建命令"><a href="#6、外部命令和内建命令" class="headerlink" title="6、外部命令和内建命令"></a>6、外部命令和内建命令</h2><blockquote>
+<p>上帝视角</p>
+<p>ps -f 单独创建一个进程，站在外面看整体（forking衍生）</p>
+<p>这种命令叫外部命令</p>
+<p>cd 不单独创建进程</p>
+<p>这种命令叫非外部命令（内建命令）</p>
+<p>可通过type 来查看</p>
+</blockquote>
+<h2 id="7、alias别名"><a href="#7、alias别名" class="headerlink" title="7、alias别名"></a>7、alias别名</h2><blockquote>
+<p>history 查看历史命令</p>
+<p>可通过！行号来执行历史命令</p>
+<p>alias li=’ls -i’</p>
+</blockquote>
+<h1 id="7-环境变量"><a href="#7-环境变量" class="headerlink" title="7.环境变量"></a>7.环境变量</h1><h2 id="1、环境变量究竟是什么"><a href="#1、环境变量究竟是什么" class="headerlink" title="1、环境变量究竟是什么"></a>1、环境变量究竟是什么</h2><blockquote>
+<p>windows上</p>
+<p>环境变量起到预约的作用</p>
+<p>全局跨盘符访问</p>
+</blockquote>
+<h2 id="2、全局变量和局部变量"><a href="#2、全局变量和局部变量" class="headerlink" title="2、全局变量和局部变量"></a>2、全局变量和局部变量</h2><blockquote>
+<p>用户变量供该用户使用，注销后只能使用系统变量</p>
+<p> $全局变量</p>
+<p>局部变量只能在当前shell使用</p>
+</blockquote>
+<h2 id="3、用户和局部变量的设定"><a href="#3、用户和局部变量的设定" class="headerlink" title="3、用户和局部变量的设定"></a>3、用户和局部变量的设定</h2><blockquote>
+<p> xxx=”xxxx“ 定义局部变量，只能在该shell中使用，子shell也不能用，父shell也不能用</p>
+<p>系统全局变量变量名大写，使用下划线命名法</p>
+<p>自己定义的变量一律小写，使用下划线命名法</p>
+</blockquote>
+<h2 id="4、定义全局变量"><a href="#4、定义全局变量" class="headerlink" title="4、定义全局变量"></a>4、定义全局变量</h2><blockquote>
+<p>export 变量名=”xxx“ 能在该shell中使用，子shell也能用，父shell不能用</p>
+<p>unset 删除变量</p>
+<p>子shell删除全局变量，其父shell依然能用</p>
+</blockquote>
+<h2 id="5、默认的环境变量"><a href="#5、默认的环境变量" class="headerlink" title="5、默认的环境变量"></a>5、默认的环境变量</h2><blockquote>
+<p>printenv 显示环境变量</p>
+<p>启动文件</p>
+<p>开机的时候默认执行环境变量</p>
+</blockquote>
+<h2 id="6、为啥要用它"><a href="#6、为啥要用它" class="headerlink" title="6、为啥要用它"></a>6、为啥要用它</h2><blockquote>
+<p>配完环境变量后</p>
+<p>任何路径全局使用</p>
+</blockquote>
+<h2 id="7、永久配置？"><a href="#7、永久配置？" class="headerlink" title="7、永久配置？"></a>7、永久配置？</h2><blockquote>
+<p> ~/.bashrc</p>
+<p>~/.bash_profile</p>
+<p>~/.bash_login</p>
+<p>~/.profile</p>
+<p>不同的发行版有不同的配置文件</p>
+</blockquote>
+<h1 id="8-安装软件"><a href="#8-安装软件" class="headerlink" title="8.安装软件"></a>8.安装软件</h1><h2 id="1、PMS和软件安装的介绍"><a href="#1、PMS和软件安装的介绍" class="headerlink" title="1、PMS和软件安装的介绍"></a>1、PMS和软件安装的介绍</h2><blockquote>
+<p>PMS包管理系统</p>
+<p>软件安装，更新，卸载…..</p>
+<p>工具依赖（LOL wegame，QQ空间 QQ）</p>
+<p>解决工具依赖问题</p>
+<ul>
+<li><p>dpkg   Debian:</p>
+<p>apt-get</p>
+<p>apt-cache</p>
+<p>aptitude     </p>
+</li>
+<li><p>rpm    </p>
+</li>
+</ul>
+</blockquote>
+<h2 id="2、安装、更新、卸载"><a href="#2、安装、更新、卸载" class="headerlink" title="2、安装、更新、卸载"></a>2、安装、更新、卸载</h2><h2 id="3、其他发行版？"><a href="#3、其他发行版？" class="headerlink" title="3、其他发行版？"></a>3、其他发行版？</h2><blockquote>
+<p>red hat        yum</p>
+</blockquote>
+<h2 id="4、安装第三方软件"><a href="#4、安装第三方软件" class="headerlink" title="4、安装第三方软件"></a>4、安装第三方软件</h2><h1 id="9-用户和权限"><a href="#9-用户和权限" class="headerlink" title="9.用户和权限"></a>9.用户和权限</h1><h2 id="1、含义和作用"><a href="#1、含义和作用" class="headerlink" title="1、含义和作用"></a>1、含义和作用</h2><blockquote>
+<p>用户id UID 数字</p>
+<p>系统账户  一些软件和服务需要用到系统级账户  uid&lt;500</p>
+<p>不要随意用root权限登录</p>
+<p>用户名：密码：uid：组id：备注字段：home目录：shell</p>
+</blockquote>
+<h2 id="2、创建用户，删除，更改"><a href="#2、创建用户，删除，更改" class="headerlink" title="2、创建用户，删除，更改"></a>2、创建用户，删除，更改</h2><blockquote>
+<p>useradd 用户名</p>
+<p>userdel 用户名</p>
+<p>usermod</p>
+<p>sudo passwd 用户名  改密码</p>
+<p> sudo chpasswd &lt; 文件名   从文件中读取修改密码</p>
+</blockquote>
+<h2 id="3、group组"><a href="#3、group组" class="headerlink" title="3、group组"></a>3、group组</h2><blockquote>
+<p> 小组目的： 共享资源的权限</p>
+<p>ubuntu为每个用户创建了一个同名的组</p>
+<p>GID 组id</p>
+</blockquote>
+<h2 id="4、文件和文件夹权限"><a href="#4、文件和文件夹权限" class="headerlink" title="4、文件和文件夹权限"></a>4、文件和文件夹权限</h2><blockquote>
+<p>d 文件夹</p>
+<p>-文件</p>
+<p>3个一组</p>
+<p> rwx   r代表可读   w代表可写  x代表可执行</p>
+<p>rwxr-xr-x</p>
+<p>rwx组创始人的权限</p>
+<p>r-x组下属成员的权限</p>
+<p>r-x其他组成员权限</p>
+</blockquote>
+<h2 id="5、chmod"><a href="#5、chmod" class="headerlink" title="5、chmod"></a>5、chmod</h2><blockquote>
+<p>chmod 改权限</p>
+<p>7代表rwx</p>
+</blockquote>
+<h1 id="10-编辑器之神VIM"><a href="#10-编辑器之神VIM" class="headerlink" title="10.编辑器之神VIM"></a>10.编辑器之神VIM</h1><h2 id="1、简单介绍"><a href="#1、简单介绍" class="headerlink" title="1、简单介绍"></a>1、简单介绍</h2><blockquote>
+<p>vi nano emacs vim（vi improve）</p>
+<p>牛逼的人总是想办法让工具变得更难用</p>
+</blockquote>
+<h2 id="2、vim的简单使用"><a href="#2、vim的简单使用" class="headerlink" title="2、vim的简单使用"></a>2、vim的简单使用</h2><blockquote>
+<p>普通模式 （命令操作模式）：操作文件</p>
+<p>插入模式：编辑的时候</p>
+<p>i 进入插入模式</p>
+<p>Esc 退到普通模式</p>
+<p>:wq     w写入   q退出</p>
+<p>如果文件有修改，<code>:q</code> 会提示有修改，是否退出，输入y退出<br>如果文件有修改，<code>:q!</code> 会强制直接退出，并且不对文件进行保留</p>
+</blockquote>
+<h2 id="3、移动"><a href="#3、移动" class="headerlink" title="3、移动"></a>3、移动</h2><blockquote>
+<p>hjkl 左下上右</p>
+</blockquote>
+<h2 id="4、翻页"><a href="#4、翻页" class="headerlink" title="4、翻页"></a>4、翻页</h2><blockquote>
+<p> ctrl f 向下翻一页</p>
+<p>ctrl b 向上翻一页</p>
+<p>ctrl e 向下翻一点</p>
+<p>ctrk y 向上翻一点</p>
+<p>G 到末尾</p>
+<p>gg 到开头</p>
+</blockquote>
+<h2 id="5、不同方式编辑文本，以及跳跃单词"><a href="#5、不同方式编辑文本，以及跳跃单词" class="headerlink" title="5、不同方式编辑文本，以及跳跃单词"></a>5、不同方式编辑文本，以及跳跃单词</h2><blockquote>
+<p>i  在光标位置前面插入</p>
+<p>a 在光标位置后面插入</p>
+<p>o 直接enter到下一行输入</p>
+<p>x 删除光标所在字符</p>
+<p>dd 删除整个一行</p>
+<p>u 撤销</p>
+<p>dw 移除当前所在光标往后的单词</p>
+<p>b 跳跃到单词首字母</p>
+<p>e 跳跃到单词尾字母</p>
+<p>w 跳跃下一个单词的首字母</p>
+<p>shift 组合操作  大跳跃</p>
+</blockquote>
+<h2 id="6、跳跃行首行尾"><a href="#6、跳跃行首行尾" class="headerlink" title="6、跳跃行首行尾"></a>6、跳跃行首行尾</h2><blockquote>
+<p>shift 6 (^)跳跃到行首（不含tab）</p>
+<p>shift 4 ($) 跳跃到行尾</p>
+<p>0  跳跃到行首（含tab）</p>
+<p>r 替换字母</p>
+<p>在普通模式里，千万别使用退格键</p>
+</blockquote>
+<h2 id="7、大括号跳跃函数段落"><a href="#7、大括号跳跃函数段落" class="headerlink" title="7、大括号跳跃函数段落"></a>7、大括号跳跃函数段落</h2><blockquote>
+<p>{  </p>
+<p>}</p>
+<p>上下跳跃段落</p>
+</blockquote>
+<h2 id="8、vim复制剪切粘贴"><a href="#8、vim复制剪切粘贴" class="headerlink" title="8、vim复制剪切粘贴"></a>8、vim复制剪切粘贴</h2><blockquote>
+<p>d删除之后 p粘贴 相当于剪切</p>
+<p>yw 复制一个单词</p>
+<p>y$ 从当前开始，往后复制到行末尾</p>
+</blockquote>
+<h2 id="9、Visual可视化模式"><a href="#9、Visual可视化模式" class="headerlink" title="9、Visual可视化模式"></a>9、Visual可视化模式</h2><blockquote>
+<p>v—&gt; hjkl 操作选择</p>
+<p>y     p</p>
+<p>V  按行来选</p>
+<p>v o 切换向前选中向后选中</p>
+<p>ctrl v 矩阵选择</p>
+<p>0 补全角落</p>
+<p>v a w 快速选择单词</p>
+<p>v a b 包括括号</p>
+<p>v a B 包括大括号</p>
+<p>va&lt; 包含&lt;&gt;</p>
+</blockquote>
+<h2 id="10、视图模式其他的用法"><a href="#10、视图模式其他的用法" class="headerlink" title="10、视图模式其他的用法"></a>10、视图模式其他的用法</h2><blockquote>
+<p>v  shift &lt;&gt; 代码缩进</p>
+<p>v ~ 字母大小写切换</p>
+<p>v u 全部转换成小写</p>
+<p>v U 全部转换成大写</p>
+</blockquote>
+<h2 id="11、查找和替换"><a href="#11、查找和替换" class="headerlink" title="11、查找和替换"></a>11、查找和替换</h2><blockquote>
+<p>/单词   查找单词 按n换下一个</p>
+<p>：s/let/const/g  将整行所有的let替换为const</p>
+<p> ：%s/let/const/g 全文替换</p>
+<p>：set number 临时显示行号</p>
+<p>：9,15s/const/let/g 替换9到15行</p>
+<p>：%s/let/const/gc 替换时询问</p>
+</blockquote>
+<h2 id="12、vim的基础配置"><a href="#12、vim的基础配置" class="headerlink" title="12、vim的基础配置"></a>12、vim的基础配置</h2><blockquote>
+<p>number gg 跳到某一行</p>
+</blockquote>
+<h1 id="11-server"><a href="#11-server" class="headerlink" title="11.server"></a>11.server</h1><h2 id="1、Linux-Server"><a href="#1、Linux-Server" class="headerlink" title="1、Linux Server"></a>1、Linux Server</h2><blockquote>
+<p>服务器</p>
+<p>putty</p>
+</blockquote>
+<h2 id="2、SSH"><a href="#2、SSH" class="headerlink" title="2、SSH"></a>2、SSH</h2><h2 id="3、提及WSL"><a href="#3、提及WSL" class="headerlink" title="3、提及WSL"></a>3、提及WSL</h2><h2 id="4、结束"><a href="#4、结束" class="headerlink" title="4、结束"></a>4、结束</h2><blockquote>
+<p>恭喜你，你已经入门了</p>
+<p>后面的路就自己去探索吧</p>
+<p>只有你一路向前，才知道接下来该做什么</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Tryorish</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/04/09/%E6%AD%A5%E5%85%A5Linux%E7%9A%84%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95/">http://example.com/2022/04/09/%E6%AD%A5%E5%85%A5Linux%E7%9A%84%E7%8E%B0%E4%BB%A3%E6%96%B9%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Tryorish</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/yi.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/04/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><img class="prev-cover" src="/img/er.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">计算机网络学习笔记</div></div></a></div><div class="next-post pull-right"><a href="/2022/04/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><img class="next-cover" src="/img/hai.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数据结构与算法学习笔记</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/tit.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tryorish</div><div class="author-info__description">风虽大，都绕过我灵魂</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Tryorish/Tryorish.github.io"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Tryorish/Tryorish.github.io" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/img/qq.jpg" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-Linux%E5%88%9D%E6%AD%A5%E8%AE%A4%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">0.Linux初步认识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%AE%A4%E8%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">1、系统的认识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%AE%A4%E8%AF%86%E4%BB%A5%E5%8F%8A%E5%BC%80%E6%BA%90%E7%9A%84%E6%8F%90%E5%87%BA%EF%BC%8CLinux%E6%9C%89%E5%A4%9A%E4%B8%AA%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC%EF%BC%8C%E6%90%9E%E6%B8%85%E6%A5%9A%E4%BB%96%E4%BB%AC%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.2.</span> <span class="toc-text">2、Linux操作系统认识以及开源的提出，Linux有多个发行版本，搞清楚他们是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%BC%80%E6%BA%90%E4%B8%80%E5%AE%9A%E5%85%8D%E8%B4%B9%E5%90%97"><span class="toc-number">1.3.</span> <span class="toc-text">3、开源一定免费吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81Linux%E7%94%A8%E9%80%94%E4%BB%A5%E5%8F%8A%E5%8D%83%E5%A5%87%E7%99%BE%E6%80%AA%E7%9A%84%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC"><span class="toc-number">1.4.</span> <span class="toc-text">4、Linux用途以及千奇百怪的发行版本</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-VMware%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">1.VMware虚拟机使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-VMware%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">2.1.</span> <span class="toc-text">1.VMware虚拟机</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Ubuntu%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">2.Ubuntu安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%AD%A5%E5%85%A5Linux%E7%9A%84%E4%B8%96%E7%95%8C"><span class="toc-number">4.</span> <span class="toc-text">3.步入Linux的世界</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81Linux%E5%85%A5%E9%97%A8%E7%A9%B6%E7%AB%9F%E8%A6%81%E5%AD%A6%E4%BB%80%E4%B9%88%E2%80%94%E5%9B%9B%E5%A4%A7%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="toc-number">4.1.</span> <span class="toc-text">1、Linux入门究竟要学什么—四大组成部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81GUI%E5%92%8CGNU%E2%80%94Linux%E7%B3%BB%E7%BB%9F%E7%BB%84%E6%88%90"><span class="toc-number">4.2.</span> <span class="toc-text">2、GUI和GNU—Linux系统组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81Linux%E5%86%85%E6%A0%B8%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="toc-number">4.3.</span> <span class="toc-text">3、Linux内核组成部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.4.</span> <span class="toc-text">4、文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81GNU%E6%A0%B8%E5%BF%83%E2%80%94coreutils-and-shell"><span class="toc-number">4.5.</span> <span class="toc-text">5、GNU核心—coreutils and shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81Shell%E2%80%94CLI%E5%92%8CGUI"><span class="toc-number">4.6.</span> <span class="toc-text">6、Shell—CLI和GUI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81GUI-Desktop%E2%80%94XW-KDE-GNOME"><span class="toc-number">4.7.</span> <span class="toc-text">7、GUI Desktop—XW KDE GNOME</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E7%BB%88%E4%BA%8E%EF%BC%81shell%E5%91%BD%E4%BB%A4%EF%BC%8C%E6%88%91%E6%9D%A5%E4%BA%86%EF%BC%81"><span class="toc-number">5.</span> <span class="toc-text">4.终于！shell命令，我来了！</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81CLI%E5%87%86%E5%A4%87"><span class="toc-number">5.1.</span> <span class="toc-text">1、CLI准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E6%89%93%E5%BC%80CLI%E7%BB%88%E7%AB%AFterminal"><span class="toc-number">5.2.</span> <span class="toc-text">2、打开CLI终端terminal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%90%9E%E5%AE%9ALinux%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%EF%BC%8C%E8%87%AA%E7%94%B1%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">5.3.</span> <span class="toc-text">3、搞定Linux命令参数，自由使用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81Linux%E6%A0%B9%E7%9B%AE%E5%BD%95"><span class="toc-number">5.4.</span> <span class="toc-text">4、Linux根目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81Linux%E6%A0%B9%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90"><span class="toc-number">5.5.</span> <span class="toc-text">5、Linux根目录解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81cd%E5%91%BD%E4%BB%A4"><span class="toc-number">5.6.</span> <span class="toc-text">6、cd命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81Ctrl-C%E5%9C%A8Linux%E4%B8%8A%E6%98%AF%E5%95%A5"><span class="toc-number">5.7.</span> <span class="toc-text">7、Ctrl+C在Linux上是啥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E3%80%81%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-number">5.8.</span> <span class="toc-text">8、绝对路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9%E3%80%81%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-number">5.9.</span> <span class="toc-text">9、相对路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10%E3%80%81Linux%E4%B8%8A%E7%9A%84%E8%B7%AF%E5%BE%84"><span class="toc-number">5.10.</span> <span class="toc-text">10、Linux上的路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11%E3%80%81%E5%A6%82%E4%BD%95%E7%BB%83%E4%B9%A0%E9%9D%9E%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81"><span class="toc-number">5.11.</span> <span class="toc-text">11、如何练习非非常重要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12%E3%80%81ls%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B-%E5%90%84%E7%A7%8D%E5%8C%B9%E9%85%8D%E8%BF%87%E6%BB%A4%E7%AC%A6%E5%8F%B7"><span class="toc-number">5.12.</span> <span class="toc-text">12、ls进阶用法文件夹下 各种匹配过滤符号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13%E3%80%81touch"><span class="toc-number">5.13.</span> <span class="toc-text">13、touch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14%E3%80%81cp"><span class="toc-number">5.14.</span> <span class="toc-text">14、cp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15%E3%80%81%E7%BB%83%E4%B9%A0cp%E9%80%92%E5%BD%92%E5%92%8C%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="toc-number">5.15.</span> <span class="toc-text">15、练习cp递归和小技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16%E3%80%81%E7%BB%88%E7%AB%AF%E5%85%89%E6%A0%87%E7%A7%BB%E5%8A%A8%E6%8A%80%E5%B7%A7"><span class="toc-number">5.16.</span> <span class="toc-text">16、终端光标移动技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17%E3%80%81lnk%E9%93%BE%E6%8E%A5%E6%96%87%E4%BB%B6"><span class="toc-number">5.17.</span> <span class="toc-text">17、lnk链接文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18%E3%80%81%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5%E5%92%8C%E7%A1%AC%E9%93%BE%E6%8E%A5"><span class="toc-number">5.18.</span> <span class="toc-text">18、符号链接和硬链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">5.19.</span> <span class="toc-text">19、注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20%E3%80%81mv%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-number">5.20.</span> <span class="toc-text">20、mv重命名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#21%E3%80%81%E7%A7%BB%E5%8A%A8%E5%92%8C%E9%AA%9A%E6%93%8D%E4%BD%9C"><span class="toc-number">5.21.</span> <span class="toc-text">21、移动和骚操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22%E3%80%81rm-Linux%E6%9C%80%E5%8D%B1%E9%99%A9%E7%9A%84%E5%91%BD%E4%BB%A4%E4%B9%8B%E4%B8%80%EF%BC%8C%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B"><span class="toc-number">5.22.</span> <span class="toc-text">22、rm Linux最危险的命令之一，删库跑路了解一下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#23%E3%80%81%E5%88%9B%E5%BB%BA%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%8C%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-number">5.23.</span> <span class="toc-text">23、创建删除文件夹，文件类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#24%E3%80%81cat%EF%BC%8Cmore%EF%BC%8Cless%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%91%BD%E4%BB%A4"><span class="toc-number">5.24.</span> <span class="toc-text">24、cat，more，less查看文件命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#25%E3%80%81tail%E5%92%8Chead"><span class="toc-number">5.25.</span> <span class="toc-text">25、tail和head</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E6%9B%B4%E4%B8%8A%E4%B8%80%E5%B1%82%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%9A%84shell"><span class="toc-number">6.</span> <span class="toc-text">5.更上一层系统上的shell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E8%AE%A4%E8%AF%86%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-number">6.1.</span> <span class="toc-text">1、认识任务管理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81Linux%E5%BD%93%E4%B8%AD%E7%9A%84%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-number">6.2.</span> <span class="toc-text">2、Linux当中的任务管理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81kill"><span class="toc-number">6.3.</span> <span class="toc-text">3、kill</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%8C%82%E8%BD%BD"><span class="toc-number">6.4.</span> <span class="toc-text">4、挂载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81mount"><span class="toc-number">6.5.</span> <span class="toc-text">5、mount</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E6%8C%82%E8%BD%BD"><span class="toc-number">6.6.</span> <span class="toc-text">6、为什么要有挂载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81%E5%AE%89%E5%8D%93%E6%8C%82%E8%BD%BD"><span class="toc-number">6.7.</span> <span class="toc-text">7、安卓挂载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E3%80%81df%E5%92%8Cdu"><span class="toc-number">6.8.</span> <span class="toc-text">8、df和du</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9%E3%80%81sort%E6%96%87%E4%BB%B6%E6%8E%92%E5%BA%8F%EF%BC%8Cgrep%E6%90%9C%E7%B4%A2"><span class="toc-number">6.9.</span> <span class="toc-text">9、sort文件排序，grep搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10%E3%80%81%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9%E5%BD%92%E6%A1%A3%E8%A7%A3%E5%8E%8B%E7%BC%A9"><span class="toc-number">6.10.</span> <span class="toc-text">10、打包压缩归档解压缩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11%E3%80%81sever%E4%B8%8A%E5%AE%89%E8%A3%85vmwaretools%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">6.11.</span> <span class="toc-text">11、sever上安装vmwaretools的方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E7%88%B6%E5%AD%90shell"><span class="toc-number">7.</span> <span class="toc-text">6.父子shell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%88%B6%E5%AD%90shell%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">7.1.</span> <span class="toc-text">1、父子shell的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%88%86%E5%8F%B7%E5%9C%A8%E5%91%BD%E4%BB%A4%E9%87%8C%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">7.2.</span> <span class="toc-text">2、分号在命令里的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81sleep-%E5%92%8Cjobs"><span class="toc-number">7.3.</span> <span class="toc-text">3、sleep 和jobs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E5%90%8E%E5%8F%B0%E7%94%A8%E6%B3%95%E7%9A%84%E4%B8%BE%E4%BE%8B"><span class="toc-number">7.4.</span> <span class="toc-text">4、后台用法的举例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81coproc%E5%8D%8F%E7%A8%8B"><span class="toc-number">7.5.</span> <span class="toc-text">5、coproc协程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E5%A4%96%E9%83%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E5%86%85%E5%BB%BA%E5%91%BD%E4%BB%A4"><span class="toc-number">7.6.</span> <span class="toc-text">6、外部命令和内建命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81alias%E5%88%AB%E5%90%8D"><span class="toc-number">7.7.</span> <span class="toc-text">7、alias别名</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">8.</span> <span class="toc-text">7.环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%A9%B6%E7%AB%9F%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">8.1.</span> <span class="toc-text">1、环境变量究竟是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="toc-number">8.2.</span> <span class="toc-text">2、全局变量和局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E7%94%A8%E6%88%B7%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E8%AE%BE%E5%AE%9A"><span class="toc-number">8.3.</span> <span class="toc-text">3、用户和局部变量的设定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-number">8.4.</span> <span class="toc-text">4、定义全局变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E9%BB%98%E8%AE%A4%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">8.5.</span> <span class="toc-text">5、默认的环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E4%B8%BA%E5%95%A5%E8%A6%81%E7%94%A8%E5%AE%83"><span class="toc-number">8.6.</span> <span class="toc-text">6、为啥要用它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81%E6%B0%B8%E4%B9%85%E9%85%8D%E7%BD%AE%EF%BC%9F"><span class="toc-number">8.7.</span> <span class="toc-text">7、永久配置？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="toc-number">9.</span> <span class="toc-text">8.安装软件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81PMS%E5%92%8C%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-number">9.1.</span> <span class="toc-text">1、PMS和软件安装的介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85%E3%80%81%E6%9B%B4%E6%96%B0%E3%80%81%E5%8D%B8%E8%BD%BD"><span class="toc-number">9.2.</span> <span class="toc-text">2、安装、更新、卸载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E5%85%B6%E4%BB%96%E5%8F%91%E8%A1%8C%E7%89%88%EF%BC%9F"><span class="toc-number">9.3.</span> <span class="toc-text">3、其他发行版？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E5%AE%89%E8%A3%85%E7%AC%AC%E4%B8%89%E6%96%B9%E8%BD%AF%E4%BB%B6"><span class="toc-number">9.4.</span> <span class="toc-text">4、安装第三方软件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90"><span class="toc-number">10.</span> <span class="toc-text">9.用户和权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%90%AB%E4%B9%89%E5%92%8C%E4%BD%9C%E7%94%A8"><span class="toc-number">10.1.</span> <span class="toc-text">1、含义和作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%EF%BC%8C%E5%88%A0%E9%99%A4%EF%BC%8C%E6%9B%B4%E6%94%B9"><span class="toc-number">10.2.</span> <span class="toc-text">2、创建用户，删除，更改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81group%E7%BB%84"><span class="toc-number">10.3.</span> <span class="toc-text">3、group组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E6%96%87%E4%BB%B6%E5%92%8C%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9D%83%E9%99%90"><span class="toc-number">10.4.</span> <span class="toc-text">4、文件和文件夹权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81chmod"><span class="toc-number">10.5.</span> <span class="toc-text">5、chmod</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E7%BC%96%E8%BE%91%E5%99%A8%E4%B9%8B%E7%A5%9EVIM"><span class="toc-number">11.</span> <span class="toc-text">10.编辑器之神VIM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="toc-number">11.1.</span> <span class="toc-text">1、简单介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81vim%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-number">11.2.</span> <span class="toc-text">2、vim的简单使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E7%A7%BB%E5%8A%A8"><span class="toc-number">11.3.</span> <span class="toc-text">3、移动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E7%BF%BB%E9%A1%B5"><span class="toc-number">11.4.</span> <span class="toc-text">4、翻页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E4%B8%8D%E5%90%8C%E6%96%B9%E5%BC%8F%E7%BC%96%E8%BE%91%E6%96%87%E6%9C%AC%EF%BC%8C%E4%BB%A5%E5%8F%8A%E8%B7%B3%E8%B7%83%E5%8D%95%E8%AF%8D"><span class="toc-number">11.5.</span> <span class="toc-text">5、不同方式编辑文本，以及跳跃单词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E8%B7%B3%E8%B7%83%E8%A1%8C%E9%A6%96%E8%A1%8C%E5%B0%BE"><span class="toc-number">11.6.</span> <span class="toc-text">6、跳跃行首行尾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81%E5%A4%A7%E6%8B%AC%E5%8F%B7%E8%B7%B3%E8%B7%83%E5%87%BD%E6%95%B0%E6%AE%B5%E8%90%BD"><span class="toc-number">11.7.</span> <span class="toc-text">7、大括号跳跃函数段落</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%E3%80%81vim%E5%A4%8D%E5%88%B6%E5%89%AA%E5%88%87%E7%B2%98%E8%B4%B4"><span class="toc-number">11.8.</span> <span class="toc-text">8、vim复制剪切粘贴</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9%E3%80%81Visual%E5%8F%AF%E8%A7%86%E5%8C%96%E6%A8%A1%E5%BC%8F"><span class="toc-number">11.9.</span> <span class="toc-text">9、Visual可视化模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10%E3%80%81%E8%A7%86%E5%9B%BE%E6%A8%A1%E5%BC%8F%E5%85%B6%E4%BB%96%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-number">11.10.</span> <span class="toc-text">10、视图模式其他的用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11%E3%80%81%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9B%BF%E6%8D%A2"><span class="toc-number">11.11.</span> <span class="toc-text">11、查找和替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12%E3%80%81vim%E7%9A%84%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="toc-number">11.12.</span> <span class="toc-text">12、vim的基础配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-server"><span class="toc-number">12.</span> <span class="toc-text">11.server</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81Linux-Server"><span class="toc-number">12.1.</span> <span class="toc-text">1、Linux Server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81SSH"><span class="toc-number">12.2.</span> <span class="toc-text">2、SSH</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%8F%90%E5%8F%8AWSL"><span class="toc-number">12.3.</span> <span class="toc-text">3、提及WSL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E7%BB%93%E6%9D%9F"><span class="toc-number">12.4.</span> <span class="toc-text">4、结束</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/06/30/java%E8%BF%9B%E9%98%B6/" title="java进阶"><img src="/img/java.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java进阶"/></a><div class="content"><a class="title" href="/2022/06/30/java%E8%BF%9B%E9%98%B6/" title="java进阶">java进阶</a><time datetime="2022-06-30T05:43:48.000Z" title="发表于 2022-06-30 13:43:48">2022-06-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/31/JavaWeb%E7%AC%94%E8%AE%B0/" title="JavaWeb笔记"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaWeb笔记"/></a><div class="content"><a class="title" href="/2022/05/31/JavaWeb%E7%AC%94%E8%AE%B0/" title="JavaWeb笔记">JavaWeb笔记</a><time datetime="2022-05-31T08:51:57.000Z" title="发表于 2022-05-31 16:51:57">2022-05-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/07/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/" title="字节青训营后端学习"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="字节青训营后端学习"/></a><div class="content"><a class="title" href="/2022/05/07/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/" title="字节青训营后端学习">字节青训营后端学习</a><time datetime="2022-05-07T05:26:11.000Z" title="发表于 2022-05-07 13:26:11">2022-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/26/MySQL%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF/" title="MySQL从零到删库跑路"><img src="/img/MySQL.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL从零到删库跑路"/></a><div class="content"><a class="title" href="/2022/04/26/MySQL%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF/" title="MySQL从零到删库跑路">MySQL从零到删库跑路</a><time datetime="2022-04-26T05:55:51.000Z" title="发表于 2022-04-26 13:55:51">2022-04-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="计算机网络学习笔记"><img src="/img/er.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络学习笔记"/></a><div class="content"><a class="title" href="/2022/04/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="计算机网络学习笔记">计算机网络学习笔记</a><time datetime="2022-04-13T02:35:24.000Z" title="发表于 2022-04-13 10:35:24">2022-04-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Tryorish</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

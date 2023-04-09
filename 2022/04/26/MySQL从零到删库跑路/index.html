@@ -1,0 +1,408 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MySQL从零到删库跑路 | Tryorish</title><meta name="author" content="Tryorish"><meta name="copyright" content="Tryorish"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.开场1.什么是数据库？数据   qq  密码    仓库 数据库：保存海量数据的仓库 当new 一个对象时，数据放在内存里，程序结束，第二次运行的时候，上次的数据就没了 保存在文件里（写文件）    瞬时-〉持久   在文件中增删改查   蠢！ 配置文件保存在文件中 C R U D 2.模型 层次模型  树  查询效率低（不知道查哪个表）  数据不完整性    网状模型  图 只能使用共性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL从零到删库跑路">
+<meta property="og:url" content="http://example.com/2022/04/26/MySQL%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF/index.html">
+<meta property="og:site_name" content="Tryorish">
+<meta property="og:description" content="1.开场1.什么是数据库？数据   qq  密码    仓库 数据库：保存海量数据的仓库 当new 一个对象时，数据放在内存里，程序结束，第二次运行的时候，上次的数据就没了 保存在文件里（写文件）    瞬时-〉持久   在文件中增删改查   蠢！ 配置文件保存在文件中 C R U D 2.模型 层次模型  树  查询效率低（不知道查哪个表）  数据不完整性    网状模型  图 只能使用共性">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/MySQL.jpg">
+<meta property="article:published_time" content="2022-04-26T05:55:51.000Z">
+<meta property="article:modified_time" content="2022-04-29T13:39:47.700Z">
+<meta property="article:author" content="Tryorish">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/MySQL.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/04/26/MySQL%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MySQL从零到删库跑路',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-04-29 21:39:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/iconfont.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/tit.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/MySQL.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Tryorish</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MySQL从零到删库跑路</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-26T05:55:51.000Z" title="发表于 2022-04-26 13:55:51">2022-04-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-29T13:39:47.700Z" title="更新于 2022-04-29 21:39:47">2022-04-29</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL从零到删库跑路"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-开场"><a href="#1-开场" class="headerlink" title="1.开场"></a>1.开场</h1><h2 id="1-什么是数据库？"><a href="#1-什么是数据库？" class="headerlink" title="1.什么是数据库？"></a>1.什么是数据库？</h2><p>数据   qq  密码    仓库</p>
+<p>数据库：保存海量数据的仓库</p>
+<p>当new 一个对象时，数据放在内存里，程序结束，第二次运行的时候，上次的数据就没了</p>
+<p>保存在文件里（写文件）    瞬时-〉持久  </p>
+<p>在文件中增删改查   蠢！</p>
+<p>配置文件保存在文件中</p>
+<p>C R U D</p>
+<h2 id="2-模型"><a href="#2-模型" class="headerlink" title="2.模型"></a>2.模型</h2><ol>
+<li><p>层次模型</p>
+<ul>
+<li><p>树</p>
+</li>
+<li><p>查询效率低（不知道查哪个表）</p>
+</li>
+<li><p>数据不完整性</p>
+</li>
+</ul>
+</li>
+<li><p>网状模型</p>
+<ul>
+<li>图</li>
+<li>只能使用共性</li>
+</ul>
+</li>
+<li><p>关系型</p>
+<ul>
+<li>二维表</li>
+<li>通过一个共有的字段组合</li>
+</ul>
+</li>
+</ol>
+<h2 id="3-安装"><a href="#3-安装" class="headerlink" title="3.安装"></a>3.安装</h2><p>mysql -u -root -p</p>
+<p>以管理员身份密码登录mysql</p>
+<h1 id="2-数据库基本操作"><a href="#2-数据库基本操作" class="headerlink" title="2.数据库基本操作"></a>2.数据库基本操作</h1><ul>
+<li><p>show databases; 显示数据库</p>
+</li>
+<li><p>create database student;  创建一个名为student的数据库</p>
+</li>
+<li><p>create database if not exists student; 如果不存在则创建</p>
+</li>
+<li><p>drop database student;  删除一个名为student的数据库</p>
+</li>
+<li><p>drop database if exists student;  如果存在则删除 </p>
+</li>
+<li><p>show create database 库名； 查看库的创建方式</p>
+</li>
+</ul>
+<p>乱码   字符编码</p>
+<p>GBK UTF-8</p>
+<ul>
+<li>create database if not exists teacher charset=gbk;  创建teacher数据库默认编码为gbk</li>
+<li>alter database student charset=gbk;  修改student库的编码为gbk</li>
+</ul>
+<h1 id="3-表的基本操作"><a href="#3-表的基本操作" class="headerlink" title="3.表的基本操作"></a>3.表的基本操作</h1><p>仓库-〉数据库</p>
+<p>eg： JD 松江仓库</p>
+<ol>
+<li>电子产品</li>
+<li>日用品</li>
+<li>化妆品</li>
+<li>。。。。</li>
+</ol>
+<p>仓库的下边，有其他东西，这个东西，归类，表</p>
+<ul>
+<li><p>use student； 使用student仓库</p>
+</li>
+<li><p>show tables; 查看表</p>
+</li>
+<li><p>create table student(</p>
+<p>id int,</p>
+<p>name varchar(30),</p>
+<p>age int</p>
+<p>) ；</p>
+<p>创建一个表</p>
+</li>
+<li><p>create table if not exists teacher(</p>
+<p>id int auto_increment primary key comment ‘主键id’,</p>
+<p>name varchar(30) not null comment ‘老师的名字’，</p>
+<p>address varchar(100) default ‘暂时未知’ comment ‘住址’</p>
+<p>)engine=innodb;</p>
+<p>id  name age 字段</p>
+<p>auto_increment 自动增长</p>
+<p>primary key 主键 最主要的 唯一的 靠它来区分不同对象</p>
+<p>comment 注释</p>
+<p>not null 不能为空</p>
+<p>defalut+默认值 默认初始化</p>
+<p>engine=innodb  使用innodb引擎</p>
+</li>
+<li><p>show create table +表名；显示创建该表的语句</p>
+</li>
+<li><p>desc +表名；显示该表结构；</p>
+</li>
+<li><p>drop table if exists 表名；删除该表</p>
+</li>
+<li><p>alter table 表名 add phone varchar(20);添加一个字段</p>
+</li>
+<li><p>alter table 表名 add phone varchar(20 after name;在name后添加一个字段</p>
+</li>
+<li><p>alter table 表名 add phone varchar(20) first;在首行添加一个字段</p>
+</li>
+<li><p>alter table 表名 drop 字段名；删除一个字段</p>
+</li>
+<li><p>alter table  表名 change 字段名 新字段；修改字段</p>
+</li>
+<li><p>alter table 表名 modify 字段名 类型；修改字段类型</p>
+</li>
+<li><p>alter table 表名 rename to 新表名；修改表名</p>
+</li>
+</ul>
+<h1 id="4-数据操作"><a href="#4-数据操作" class="headerlink" title="4.数据操作"></a>4.数据操作</h1><ul>
+<li>insert into 表名 （id, name, phone, address） values(1, ‘tryorish’, ‘188888823’, ‘ShangHai’); 新增一条数据</li>
+<li>select * from 表名；查询表中所有东西</li>
+<li>insert into 表名 （id, name, phone, address） values(1, ‘tryorish’, ‘188888823’, ‘ShangHai’),(…),(…);新增多条数据</li>
+<li>delete from teacher where id=9;删除teacher表中id为9的字段</li>
+<li>truncate table student; 清空该表</li>
+<li>update 表名 set name=’try’ where id=1;更新第一条数据的名字</li>
+</ul>
+<p>DDL  data definition language 数据库定义语言 create alter drop show</p>
+<p>DML data manipulation language 数据 操纵语言 select update insert delete</p>
+<p>DCL data control language 数据库控制语言  权限</p>
+<h1 id="5-数据类型"><a href="#5-数据类型" class="headerlink" title="5.数据类型"></a>5.数据类型</h1><p>数值可以超过类型宽度但不能溢出</p>
+<p>float(3,1)  一共三位，小数1位</p>
+<p>double(5,2)  一共五位，小数2位</p>
+<p>超越小数位四舍五入，造成数据不准确 </p>
+<p>设一个字段定义为float(5,3)，如果插入一个数123.45678,实际数据库里存的是123.457，但总个数还以实际为准，即6位</p>
+<p>decimal定点数，整数小数分开存，无精度丢失可以存钱</p>
+<p>varchar回收多余空间但效率没char高</p>
+<p>enum(…) 枚举类型，只能取（  ）里面的东西  底层为1，2，3…</p>
+<p>set(…)集合类型    可以存集合中的多个值</p>
+<p>datatime 时间日期类型 2022-04-27 17:10:00</p>
+<h1 id="6-列属性完整性"><a href="#6-列属性完整性" class="headerlink" title="6.列属性完整性"></a>6.列属性完整性</h1><p>自增长必须为主键</p>
+<p>主键不一定是自增长</p>
+<p>primary key 保证数据的完整性，加快查询某种数据速</p>
+<p>复合主键（组合键）两个字段作为一个主键</p>
+<p>unique唯一键 单个表中唯一，一个表可以有多个唯一键，保证数据不重复  可以为空</p>
+<ul>
+<li>alter table 表名 drop index 字段名；删除唯一键</li>
+</ul>
+<p>#单行注释</p>
+<p>主表 从表    外键约束</p>
+<p>foreign key (字段名) references 表名（字段名） </p>
+<p>并发操作杜绝外键</p>
+<p> foreign key (字段名) references 表名（字段名） on delete set null on update cascade</p>
+<p>删除时 置空 更改时级联</p>
+<h1 id="7-数据库设计思维"><a href="#7-数据库设计思维" class="headerlink" title="7.数据库设计思维"></a>7.数据库设计思维</h1><p>关系型数据库   两张表的共有字段去确定数据的完整性</p>
+<p>行？ 一条数据  一条数据记录  实体</p>
+<p>列？一个字段  属性</p>
+<p>实体与实体之间的关系</p>
+<ol>
+<li>一对一</li>
+<li>一对多</li>
+<li>多对一</li>
+<li>多对多</li>
+</ol>
+<ul>
+<li>Codd第一范式  确保每列原子性</li>
+<li>Codd第二范式   非键字段必须依赖于键字段</li>
+<li>Codd第三范式   消除传递依赖</li>
+</ul>
+<h1 id="8-单表查询"><a href="#8-单表查询" class="headerlink" title="8.单表查询"></a>8.单表查询</h1><ul>
+<li>select</li>
+<li>from 两个表，返回两个表的笛卡尔积</li>
+<li>dual </li>
+<li>where </li>
+<li>in</li>
+<li>between </li>
+<li>is null</li>
+<li>聚合函数<ol>
+<li>sum</li>
+<li>avg</li>
+<li>max</li>
+<li>min</li>
+<li>count</li>
+</ol>
+</li>
+<li>like 模糊查询  %单个或多个占位  _单个占位</li>
+<li>group by 分组查询</li>
+<li>group_concat(…) 聚合显示..</li>
+<li>having 二次查询</li>
+<li>limit  起始位置,数据条数  范围查询</li>
+<li>distinct  去重.</li>
+</ul>
+<h1 id="9-多表查询"><a href="#9-多表查询" class="headerlink" title="9.多表查询"></a>9.多表查询</h1><ul>
+<li>union联合查询</li>
+<li>inner join  内连接  </li>
+<li>left join 左连接  以左表为基准</li>
+<li>right join 右连接   以右表为基准</li>
+<li>cross join 笛卡尔积</li>
+<li>natural join 自然连接  需有相同字段  若无相同字段则返回笛卡尔积</li>
+<li>natural left join  自然左连接</li>
+<li>natural right join 自然右连接</li>
+<li>using(…) 指定连接字段</li>
+</ul>
+<h1 id="10-子查询"><a href="#10-子查询" class="headerlink" title="10.子查询"></a>10.子查询</h1><ul>
+<li>select 作为where 的条件</li>
+<li>in    not in</li>
+<li>exists   not exists</li>
+</ul>
+<h1 id="11-高级部分"><a href="#11-高级部分" class="headerlink" title="11.高级部分"></a>11.高级部分</h1><h2 id="1-视图"><a href="#1-视图" class="headerlink" title="1.视图"></a>1.视图</h2><p>隐藏敏感信息</p>
+<ul>
+<li>create view 视图名 as select name,phone from student;</li>
+</ul>
+<p>视图算法</p>
+<h2 id="2-事务"><a href="#2-事务" class="headerlink" title="2.事务"></a>2.事务</h2><ul>
+<li>start transaction; 开启事务</li>
+<li>commit；提交</li>
+<li>rollback;  回滚</li>
+<li>savepoint  设置点</li>
+<li>rollback to 回滚点 </li>
+</ul>
+<p>ACID</p>
+<p>atomicity原子性</p>
+<p>consistency一致性</p>
+<p>isolation隔离性</p>
+<p>durability持久性 </p>
+<p>需指定引擎为innodb</p>
+<h2 id="3-索引"><a href="#3-索引" class="headerlink" title="3.索引"></a>3.索引</h2><p>index  方便查询但占空间crud效率低</p>
+<ul>
+<li>create index 索引名 on 表名(字段名)；设置索引</li>
+</ul>
+<h2 id="4-存储过程"><a href="#4-存储过程" class="headerlink" title="4.存储过程"></a>4.存储过程</h2><p>预先写好一些东西，随时调用</p>
+<p>delimiter //改结束符为//</p>
+<ul>
+<li><p>create procedure proc() </p>
+<p>begin</p>
+<p>update  wallet set balance=balance+5;</p>
+<p>update t3 set name=’tom’;</p>
+<p>end //</p>
+</li>
+<li><p>call proc();</p>
+</li>
+</ul>
+<h2 id="5-有趣的函数"><a href="#5-有趣的函数" class="headerlink" title="5.有趣的函数"></a>5.有趣的函数</h2><ul>
+<li>select rand(); 生成随机数</li>
+<li>select * from student order by rand() limit 3;从学生表中随机抽取3个人</li>
+<li>select ceil()；向上取整</li>
+<li>select round();四舍五入</li>
+<li>select floor();向下取整</li>
+<li>select truncate(3.1415926,2);截取数字3.14</li>
+<li>select ucase(…);转换成大写</li>
+<li>select lcase(…);转换成小写</li>
+<li>select left(‘…’,n)；从左截取n个字符</li>
+<li>select right(‘…’,n); 从右截取n个字符</li>
+<li>select substring(‘…’,2,3);从第二个字符开始截取3个字符</li>
+<li>select concat(‘..’,’…’);拼接字符串</li>
+<li>select now();获取当前时间</li>
+<li>select unix_timestamp();时间戳</li>
+<li>select year(now()) year,month(now()) month, day(now()) day;当前年月日</li>
+<li>select sha(“….”);字符串加密</li>
+</ul>
+<h1 id="12-企业规范约束"><a href="#12-企业规范约束" class="headerlink" title="12.企业规范约束"></a>12.企业规范约束</h1><p>unsigned tinyint  1 是否</p>
+<p>表名字段名小写  </p>
+<p>表名不能出现复数</p>
+<p>主键索引名   pk_xxx</p>
+<p>唯一键索引名      uk_xxx</p>
+<p>小数全用decimal </p>
+<p>字符很少用char</p>
+<p>必须字段  id(bigint  无符号  单表必须自增) create_time(datetime)  update_time(datetime)</p>
+<p>高并发集群中禁止外键  级联  在应用层解决</p>
+<p>禁用存储过程</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Tryorish</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/04/26/MySQL%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF/">http://example.com/2022/04/26/MySQL%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Tryorish</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/MySQL.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/07/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">字节青训营后端学习</div></div></a></div><div class="next-post pull-right"><a href="/2022/04/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><img class="next-cover" src="/img/er.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">计算机网络学习笔记</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/tit.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tryorish</div><div class="author-info__description">风虽大，都绕过我灵魂</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Tryorish/Tryorish.github.io"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Tryorish/Tryorish.github.io" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/img/qq.jpg" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%BC%80%E5%9C%BA"><span class="toc-number">1.</span> <span class="toc-text">1.开场</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">1.什么是数据库？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">2.模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85"><span class="toc-number">1.3.</span> <span class="toc-text">3.安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">2.数据库基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E8%A1%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">3.表的基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">4.数据操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">5.</span> <span class="toc-text">5.数据类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E5%88%97%E5%B1%9E%E6%80%A7%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="toc-number">6.</span> <span class="toc-text">6.列属性完整性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4"><span class="toc-number">7.</span> <span class="toc-text">7.数据库设计思维</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E5%8D%95%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="toc-number">8.</span> <span class="toc-text">8.单表查询</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="toc-number">9.</span> <span class="toc-text">9.多表查询</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="toc-number">10.</span> <span class="toc-text">10.子查询</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-%E9%AB%98%E7%BA%A7%E9%83%A8%E5%88%86"><span class="toc-number">11.</span> <span class="toc-text">11.高级部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%A7%86%E5%9B%BE"><span class="toc-number">11.1.</span> <span class="toc-text">1.视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BA%8B%E5%8A%A1"><span class="toc-number">11.2.</span> <span class="toc-text">2.事务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%B4%A2%E5%BC%95"><span class="toc-number">11.3.</span> <span class="toc-text">3.索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="toc-number">11.4.</span> <span class="toc-text">4.存储过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%9C%89%E8%B6%A3%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">11.5.</span> <span class="toc-text">5.有趣的函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-%E4%BC%81%E4%B8%9A%E8%A7%84%E8%8C%83%E7%BA%A6%E6%9D%9F"><span class="toc-number">12.</span> <span class="toc-text">12.企业规范约束</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/06/30/java%E8%BF%9B%E9%98%B6/" title="java进阶"><img src="/img/java.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="java进阶"/></a><div class="content"><a class="title" href="/2022/06/30/java%E8%BF%9B%E9%98%B6/" title="java进阶">java进阶</a><time datetime="2022-06-30T05:43:48.000Z" title="发表于 2022-06-30 13:43:48">2022-06-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/31/JavaWeb%E7%AC%94%E8%AE%B0/" title="JavaWeb笔记"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaWeb笔记"/></a><div class="content"><a class="title" href="/2022/05/31/JavaWeb%E7%AC%94%E8%AE%B0/" title="JavaWeb笔记">JavaWeb笔记</a><time datetime="2022-05-31T08:51:57.000Z" title="发表于 2022-05-31 16:51:57">2022-05-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/07/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/" title="字节青训营后端学习"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="字节青训营后端学习"/></a><div class="content"><a class="title" href="/2022/05/07/%E5%AD%97%E8%8A%82%E9%9D%92%E8%AE%AD%E8%90%A5%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0/" title="字节青训营后端学习">字节青训营后端学习</a><time datetime="2022-05-07T05:26:11.000Z" title="发表于 2022-05-07 13:26:11">2022-05-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/26/MySQL%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF/" title="MySQL从零到删库跑路"><img src="/img/MySQL.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL从零到删库跑路"/></a><div class="content"><a class="title" href="/2022/04/26/MySQL%E4%BB%8E%E9%9B%B6%E5%88%B0%E5%88%A0%E5%BA%93%E8%B7%91%E8%B7%AF/" title="MySQL从零到删库跑路">MySQL从零到删库跑路</a><time datetime="2022-04-26T05:55:51.000Z" title="发表于 2022-04-26 13:55:51">2022-04-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="计算机网络学习笔记"><img src="/img/er.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机网络学习笔记"/></a><div class="content"><a class="title" href="/2022/04/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="计算机网络学习笔记">计算机网络学习笔记</a><time datetime="2022-04-13T02:35:24.000Z" title="发表于 2022-04-13 10:35:24">2022-04-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Tryorish</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tryorish | Tryorish</title><meta name="author" content="Tryorish"><meta name="copyright" content="Tryorish"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="grep.c 相关函数 int read(int fd, char *buf, int n) &#x2F;&#x2F;Read at most n bytes into buf; returns number read; or 0 if end of file.int write(int fd, char *buf, int n) &#x2F;&#x2F;Write n bytes from buf to file descriptor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tryorish">
+<meta property="og:url" content="http://example.com/2023/10/31/xv6-grep/index.html">
+<meta property="og:site_name" content="Tryorish">
+<meta property="og:description" content="grep.c 相关函数 int read(int fd, char *buf, int n) &#x2F;&#x2F;Read at most n bytes into buf; returns number read; or 0 if end of file.int write(int fd, char *buf, int n) &#x2F;&#x2F;Write n bytes from buf to file descriptor">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2023-10-31T03:46:08.554Z">
+<meta property="article:modified_time" content="2023-10-31T11:29:42.494Z">
+<meta property="article:author" content="Tryorish">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/10/31/xv6-grep/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Tryorish',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: false,
+  postUpdate: '2023-10-31 19:29:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/iconfont.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/tit.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Tryorish</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-10-31T03:46:08.554Z" title="发表于 2023-10-31 11:46:08">2023-10-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-31T11:29:42.494Z" title="更新于 2023-10-31 19:29:42">2023-10-31</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>grep.c</p>
+<p>相关函数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">char</span> *buf, <span class="keyword">int</span> n)</span> <span class="comment">//Read at most n bytes into buf; returns number read; or 0 if end of file.</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">char</span> *buf, <span class="keyword">int</span> n)</span> <span class="comment">//Write n bytes from buf to file descriptor fd; returns n.</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">char</span> *file, <span class="keyword">int</span> flags)</span> <span class="comment">//Open a file; flags indicate read/write; returns an fd (file descriptor).</span></span></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">strchr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *str, <span class="keyword">int</span> character)</span> <span class="comment">//在给定的str字符串中查找第一次出现character（ASCII码作为整数传递）的位置</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memmove</span><span class="params">(<span class="keyword">void</span> *dest, <span class="keyword">const</span> <span class="keyword">void</span> *src, <span class="keyword">size_t</span> n)</span> <span class="comment">//从一个内存位置src复制一块数据到另一个内存位置dest，复制数据大小为n，它的特点是可以处理重叠的内存区域</span></span></span><br><span class="line"><span class="function"></span></span><br></pre></td></tr></table></figure>
+
+<p>code</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Simple grep.  Only supports ^ . * $ operators.</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;kernel/types.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;kernel/stat.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;user/user.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> buf[<span class="number">1024</span>]; <span class="comment">//定义缓冲区大小1024B</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">match</span><span class="params">(<span class="keyword">char</span>*, <span class="keyword">char</span>*)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span></span></span><br><span class="line"><span class="function"><span class="title">grep</span><span class="params">(<span class="keyword">char</span> *pattern, <span class="keyword">int</span> fd)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n, m;<span class="comment">//n用来记录每次读取的字节数，m用来存偏移量</span></span><br><span class="line">  <span class="keyword">char</span> *p, *q;<span class="comment">//字符指针，在缓冲区上移动</span></span><br><span class="line"></span><br><span class="line">  m = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>((n = read(fd, buf+m, <span class="keyword">sizeof</span>(buf)-m<span class="number">-1</span>)) &gt; <span class="number">0</span>)&#123;<span class="comment">//将数据从文件描述符不断地读到缓冲区中，直到读完为之，并确保在缓冲区末尾留出一个位置用于放置字符串的 null 终止字符</span></span><br><span class="line">    m += n;<span class="comment">//更新剩余缓冲区的索引</span></span><br><span class="line">    buf[m] = <span class="string">&#x27;\0&#x27;</span>;<span class="comment">//字符串结尾</span></span><br><span class="line">    p = buf;</span><br><span class="line">    <span class="keyword">while</span>((q = <span class="built_in">strchr</span>(p, <span class="string">&#x27;\n&#x27;</span>)) != <span class="number">0</span>)&#123;<span class="comment">//不断地从缓冲区开始搜索第一个换行符，并返回其位置，表示找到一个完整的行</span></span><br><span class="line">      *q = <span class="number">0</span>;<span class="comment">//将提取的文本行转化为C字符串</span></span><br><span class="line">      <span class="keyword">if</span>(match(pattern, p))&#123;<span class="comment">//如果该行与正则表达式模式匹配，则将该行中匹配的部分写入到文件描述符1中</span></span><br><span class="line">        *q = <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">        write(<span class="number">1</span>, p, q+<span class="number">1</span> - p);</span><br><span class="line">      &#125;</span><br><span class="line">      p = q+<span class="number">1</span>;<span class="comment">//更新位置，继续下一次搜索</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(m &gt; <span class="number">0</span>)&#123; <span class="comment">//检查是否还有未处理的数据留在buf中，如果有的话，将这些数据移动到缓冲区的开始位置，以准备下一次循环</span></span><br><span class="line">      m -= p - buf;</span><br><span class="line">      memmove(buf, p, m);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span></span></span><br><span class="line"><span class="function"><span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> fd, i;</span><br><span class="line">  <span class="keyword">char</span> *pattern;</span><br><span class="line">    </span><br><span class="line">  <span class="comment">//如果没有足够的命令行参数，打印错误信息</span></span><br><span class="line">  <span class="keyword">if</span>(argc &lt;= <span class="number">1</span>)&#123; </span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="number">2</span>, <span class="string">&quot;usage: grep pattern [file ...]\n&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">    </span><br><span class="line">  <span class="comment">//将用户提供的正则表达式模式存储在pattern变量中</span></span><br><span class="line">  pattern = argv[<span class="number">1</span>];</span><br><span class="line">    </span><br><span class="line">  <span class="comment">//如果没有指定文件名，则搜索标准输入中的数据</span></span><br><span class="line">  <span class="keyword">if</span>(argc &lt;= <span class="number">2</span>)&#123; </span><br><span class="line">    grep(pattern, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//遍历每个文件，以只读的方式打开，如果打开失败，打印错误信息，否则调用grep搜索文件内容，然后关闭文件</span></span><br><span class="line">  <span class="keyword">for</span>(i = <span class="number">2</span>; i &lt; argc; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>((fd = open(argv[i], <span class="number">0</span>)) &lt; <span class="number">0</span>)&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;grep: cannot open %s\n&quot;</span>, argv[i]);</span><br><span class="line">      <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    grep(pattern, fd);</span><br><span class="line">    close(fd);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Regexp matcher from Kernighan &amp; Pike,</span></span><br><span class="line"><span class="comment">// The Practice of Programming, Chapter 9.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">matchhere</span><span class="params">(<span class="keyword">char</span>*, <span class="keyword">char</span>*)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">matchstar</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">char</span>*, <span class="keyword">char</span>*)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span></span></span><br><span class="line"><span class="function"><span class="title">match</span><span class="params">(<span class="keyword">char</span> *re, <span class="keyword">char</span> *text)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(re[<span class="number">0</span>] == <span class="string">&#x27;^&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> matchhere(re+<span class="number">1</span>, text);</span><br><span class="line">  <span class="keyword">do</span>&#123;  <span class="comment">// must look at empty string</span></span><br><span class="line">    <span class="keyword">if</span>(matchhere(re, text))</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;<span class="keyword">while</span>(*text++ != <span class="string">&#x27;\0&#x27;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// matchhere: search for re at beginning of text</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">matchhere</span><span class="params">(<span class="keyword">char</span> *re, <span class="keyword">char</span> *text)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(re[<span class="number">0</span>] == <span class="string">&#x27;\0&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span>(re[<span class="number">1</span>] == <span class="string">&#x27;*&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> matchstar(re[<span class="number">0</span>], re+<span class="number">2</span>, text);</span><br><span class="line">  <span class="keyword">if</span>(re[<span class="number">0</span>] == <span class="string">&#x27;$&#x27;</span> &amp;&amp; re[<span class="number">1</span>] == <span class="string">&#x27;\0&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> *text == <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">  <span class="keyword">if</span>(*text!=<span class="string">&#x27;\0&#x27;</span> &amp;&amp; (re[<span class="number">0</span>]==<span class="string">&#x27;.&#x27;</span> || re[<span class="number">0</span>]==*text))</span><br><span class="line">    <span class="keyword">return</span> matchhere(re+<span class="number">1</span>, text+<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// matchstar: search for c*re at beginning of text</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">matchstar</span><span class="params">(<span class="keyword">int</span> c, <span class="keyword">char</span> *re, <span class="keyword">char</span> *text)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">do</span>&#123;  <span class="comment">// a * matches zero or more instances</span></span><br><span class="line">    <span class="keyword">if</span>(matchhere(re, text))</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;<span class="keyword">while</span>(*text!=<span class="string">&#x27;\0&#x27;</span> &amp;&amp; (*text++==c || c==<span class="string">&#x27;.&#x27;</span>));</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>TO DO</p>
+<p>match这块涉及到正则表达式引擎的实现，看了半天，各种递归套用还是迷迷糊糊的不是很理解，先挖个坑等以后再来补档吧QAQ</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Tryorish</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/10/31/xv6-grep/">http://example.com/2023/10/31/xv6-grep/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Tryorish</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/01/visual-studio-2022%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/"><img class="prev-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">visual studio 2022安装及配置</div></div></a></div><div class="next-post pull-right"><a href="/2023/10/27/xv6%E4%B9%8B%E6%97%85-lab1%20Xv6%20and%20utilities/"><img class="next-cover" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/tit.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tryorish</div><div class="author-info__description">风虽大，都绕过我灵魂</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Tryorish/Tryorish.github.io"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Tryorish/Tryorish.github.io" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/img/qq.jpg" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/12/25/%E6%8F%90%E9%97%AE%E7%9A%84%E6%99%BA%E6%85%A7-%E8%AF%BB%E5%90%8E%E6%84%9F/" title="提问的智慧-读后感"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="提问的智慧-读后感"/></a><div class="content"><a class="title" href="/2024/12/25/%E6%8F%90%E9%97%AE%E7%9A%84%E6%99%BA%E6%85%A7-%E8%AF%BB%E5%90%8E%E6%84%9F/" title="提问的智慧-读后感">提问的智慧-读后感</a><time datetime="2024-12-25T03:32:29.000Z" title="发表于 2024-12-25 11:32:29">2024-12-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/01/visual-studio-2022%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" title="visual studio 2022安装及配置"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="visual studio 2022安装及配置"/></a><div class="content"><a class="title" href="/2024/07/01/visual-studio-2022%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE/" title="visual studio 2022安装及配置">visual studio 2022安装及配置</a><time datetime="2024-07-01T12:10:55.000Z" title="发表于 2024-07-01 20:10:55">2024-07-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/31/xv6-grep/" title="无题"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2023/10/31/xv6-grep/" title="无题">无题</a><time datetime="2023-10-31T03:46:08.554Z" title="发表于 2023-10-31 11:46:08">2023-10-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/27/xv6%E4%B9%8B%E6%97%85-lab1%20Xv6%20and%20utilities/" title="无题"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2023/10/27/xv6%E4%B9%8B%E6%97%85-lab1%20Xv6%20and%20utilities/" title="无题">无题</a><time datetime="2023-10-27T02:46:42.997Z" title="发表于 2023-10-27 10:46:42">2023-10-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/23/xv6%E4%B9%8B%E6%97%85-lab0%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="无题"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"/></a><div class="content"><a class="title" href="/2023/10/23/xv6%E4%B9%8B%E6%97%85-lab0%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="无题">无题</a><time datetime="2023-10-23T09:21:23.337Z" title="发表于 2023-10-23 17:21:23">2023-10-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Tryorish</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
